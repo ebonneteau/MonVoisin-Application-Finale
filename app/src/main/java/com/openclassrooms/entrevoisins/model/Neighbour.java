@@ -50,7 +50,7 @@ public class Neighbour {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
-    }
+    } //To Use
 
     @Override
     public boolean equals(Object o) {
