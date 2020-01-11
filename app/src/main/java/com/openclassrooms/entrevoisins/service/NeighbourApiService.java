@@ -24,3 +24,13 @@ public interface NeighbourApiService {
      */
     void deleteNeighbour(Neighbour neighbour);
 }
+/**
+ * Favorite API client
+ */
+ interface FavoriteApiService { //TODO Create Class FavoriteApiService.java copy and paste interface and set it to public
+
+    /**
+     * Get all my Favorites
+     * @return {@link List}
+     */
+    List<Neighbour> getNeighbours(Neighbour favorite);}

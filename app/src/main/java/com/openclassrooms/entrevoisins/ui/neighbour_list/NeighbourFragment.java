@@ -86,5 +86,5 @@ public class NeighbourFragment extends Fragment {
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
         initList();
-    }
+    }//TODO add show event Create relative method
 }
