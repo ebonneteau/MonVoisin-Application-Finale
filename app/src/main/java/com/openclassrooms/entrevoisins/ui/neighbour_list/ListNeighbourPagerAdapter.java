@@ -7,7 +7,7 @@ import android.util.Log;
 
 
 public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
-    private static final String TAG = "ListNeighbourPagerAdapt";
+    private static final String TAG = "ListNeighbourPagerAdap";
 
     public ListNeighbourPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -29,7 +29,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      * @return
      */
     @Override
-    public Fragment getItem(int position) {//TODO add new fragment, use switch/Case like in myapplication (fragments/PageAdapter)
+    public Fragment getItem(int position) {//TODO add new fragment, use switch/Case or if like in myapplication (fragments/PageAdapter)
         if (position == 0) {
             Log.d(TAG, "getItem() called with: position = [" + position + "]"); //TODO ask why I don't see the log !
             return NeighbourFragment.newInstance(0);
