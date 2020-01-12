@@ -33,12 +33,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabIndicatorHeight="3dp">
-
+<!-- This is the TabLayout -->
+            <!-- for Neighbours -->
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tab_neighbour_title" />
+            <!-- for Favorites -->
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem2"
