@@ -55,9 +55,17 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         });
         holder.mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {//TODO add same method for add
-                Log.d(TAG, "onClick: Favorite");
+            public void onClick(View v) {//TODO add method to get neighbour in Neighbour List
+                //and add it to Favorite List
+                Log.d(TAG, "onClick: Naighbour Recycler add to Favorite List");
                 EventBus.getDefault().postSticky(neighbour);
+            }
+        });
+        holder.mNeighbourAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//TODO add method to view details of item
+                Log.d(TAG, "onClick: Neighbour to view details");
+                EventBus.getDefault().postSticky(mNeighbours);
             }
         });
     }

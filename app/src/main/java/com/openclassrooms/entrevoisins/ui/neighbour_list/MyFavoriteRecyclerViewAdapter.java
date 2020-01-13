@@ -16,11 +16,12 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+//TODO Creation of this RecyclerView
 
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 
     private final List<Favorite> mFavorite;
-    private static final String TAG = "MyNeighbourRView";
+    private static final String TAG = "MyFavRView";
 
 
     public MyFavoriteRecyclerViewAdapter(List<Favorite> items) {
@@ -44,10 +45,10 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
                 .into(holder.mFavoriteAvatar);
 
 
-        holder.mAddButton.setOnClickListener(new View.OnClickListener() {
+        holder.mFavoriteAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {//TODO add same method for add
-                Log.d(TAG, "onClick: Favorite");
+            public void onClick(View v) {//TODO add method to view details
+                Log.d(TAG, "onClick: Favorite to add neighbour into Favorite");
                 EventBus.getDefault().postSticky(mFavorite);
             }
         });
