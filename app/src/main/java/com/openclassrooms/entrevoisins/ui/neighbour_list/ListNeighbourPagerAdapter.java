@@ -31,7 +31,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {//TODO add new fragment, use switch/Case or if like in myapplication (fragments/PageAdapter)
         if (position == 0) {
-            Log.d(TAG, "getItem() called with: position = [" + position + "]"); //TODO ask why I don't see the log !
+            Log.d(TAG, "getItem() called with: position = [" + position + "]");
             return NeighbourFragment.newInstance(0);
         }
         if (position == 1) {

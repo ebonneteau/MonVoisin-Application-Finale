@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Favorite;
+import com.openclassrooms.entrevoisins.model.Neighbour;
+
 import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 import butterknife.BindView;
@@ -48,7 +50,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         holder.mFavoriteAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//TODO add method to view details
-                Log.d(TAG, "onClick: Favorite to add neighbour into Favorite");
+                Log.d(TAG, "onClick: Favorite to view details");
                 EventBus.getDefault().postSticky(mFavorite);
             }
         });

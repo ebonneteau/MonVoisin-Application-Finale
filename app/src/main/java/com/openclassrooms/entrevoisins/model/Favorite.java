@@ -56,8 +56,8 @@ public class Favorite {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Favorite neighbour = (Favorite) o;
-        return Objects.equals(id, neighbour.id);
+        Favorite favorite = (Favorite) o;
+        return Objects.equals(id, favorite.id);
     }
 
     @Override
