@@ -13,9 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.events.AddFavoriteEvent;
-import com.openclassrooms.entrevoisins.events.GetFavoriteEvent;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
-import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import org.greenrobot.eventbus.EventBus;
 import java.util.List;
@@ -49,7 +47,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mNeighbourAvatar);
 
-        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {//TODO add holder mAddButton
+        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
@@ -61,7 +59,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 //TODO and add it to Favorite List
                 Log.d(TAG, "onClick: Neighbour Recycler add to Favorite List");
                 EventBus.getDefault().post(new AddFavoriteEvent(neighbour));
-                //TODO How to call FavoriteRecyclerView ?
+
 
             }
         });
@@ -69,7 +67,8 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             @Override
             public void onClick(View v) {//TODO add method to view details of item
                 Log.d(TAG, "onClick: Neighbour to view details");
-                EventBus.getDefault().postSticky(mNeighbours);
+
+
             }
         });
     }

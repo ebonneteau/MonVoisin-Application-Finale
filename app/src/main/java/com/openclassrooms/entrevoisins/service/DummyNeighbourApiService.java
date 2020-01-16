@@ -1,9 +1,6 @@
 package com.openclassrooms.entrevoisins.service;
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +25,9 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
 
     @Override
     public List<Favorite> getFavorites() {
-        if (favorites.size() == 0){
-            favorites.add(0, new Favorite(1, "Voici la liste", "de vos favoris:)") );
+
             return favorites;
-        }else {
-        return favorites;}
+
 
     }
 

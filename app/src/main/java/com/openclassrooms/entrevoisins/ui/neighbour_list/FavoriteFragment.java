@@ -53,7 +53,7 @@ public class FavoriteFragment extends Fragment {
     private void initList() {
         if (mFavorites == null){
             List<Favorite> mFavorites = new ArrayList<>();
-            mFavorites.add(0, new Favorite(1, "Voici la liste", "de vos favoris:)") );
+            mFavorites.add(0, new Favorite(1, "liste de vos favoris:)", "http://i.pravatar.cc/150?u=a042581f4e29026703d") );
 
             mRecyclerView.setAdapter(new MyFavoriteRecyclerViewAdapter(mFavorites));
         }else {
