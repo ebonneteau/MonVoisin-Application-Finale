@@ -6,10 +6,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
 import com.openclassrooms.entrevoisins.R;
 
-public class NeighbourDetail extends AppCompatActivity {
+
+public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling Activity Android Studio type
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,4 +28,7 @@ public class NeighbourDetail extends AppCompatActivity {
             }
         });
     }
+
+
+
 }

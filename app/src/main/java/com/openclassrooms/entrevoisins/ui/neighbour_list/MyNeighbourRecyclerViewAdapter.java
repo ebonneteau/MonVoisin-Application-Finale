@@ -69,6 +69,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 Log.d(TAG, "onClick: Neighbour to view details");
 
 
+
             }
         });
     }
