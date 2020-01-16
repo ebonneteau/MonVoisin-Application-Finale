@@ -1,5 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,15 +22,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
-
+    private Context  context; // Declare context for later use with Intent
     private static final String TAG = "MyNeighbourRView";
+
 
 
     public MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
         mNeighbours = items;
+
     }
 
     @Override
@@ -47,6 +52,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mNeighbourAvatar);
 
+
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,11 +70,14 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             }
         });
         holder.mNeighbourAvatar.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {//TODO add method to view details of item
+
                 Log.d(TAG, "onClick: Neighbour to view details");
-
-
+                Intent intent = new Intent( holder.mNeighbourAvatar.getContext() , NeighbourDetail.class );
+                
+                holder.mNeighbourAvatar.getContext().startActivity(intent);
 
             }
         });
