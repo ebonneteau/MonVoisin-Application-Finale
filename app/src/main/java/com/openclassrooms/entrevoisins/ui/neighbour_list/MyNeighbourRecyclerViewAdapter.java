@@ -59,24 +59,24 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
             }
         });
-        holder.mAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public  void onClick(View v) {//TODO add method to get neighbour in Neighbour List
-                //TODO and add it to Favorite List
-                Log.d(TAG, "onClick: Neighbour Recycler add to Favorite List");
-                EventBus.getDefault().post(new AddFavoriteEvent(neighbour));
 
-
-            }
-        });
         holder.mNeighbourAvatar.setOnClickListener(new View.OnClickListener() {
+
+
 
             @Override
             public void onClick(View v) {//TODO add method to view details of item
 
+
                 Log.d(TAG, "onClick: Neighbour to view details");
+
+
+
                 Intent intent = new Intent( holder.mNeighbourAvatar.getContext() , NeighbourDetail.class );
-                
+                intent.putExtra("avatar_Url", neighbour.getAvatarUrl());
+                intent.putExtra("item_list_avatar", neighbour.getName());
+
+
                 holder.mNeighbourAvatar.getContext().startActivity(intent);
 
             }
@@ -95,8 +95,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         public TextView mNeighbourName;
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
-        @BindView(R.id.item_list_add_button)
-        public ImageButton mAddButton;
+
 
         public ViewHolder(View view) {
             super(view);
