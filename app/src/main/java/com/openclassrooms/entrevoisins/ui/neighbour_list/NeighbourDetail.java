@@ -26,7 +26,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         setSupportActionBar(toolbar);
         Log.d(TAG, "onCreate: started ");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_to_favorite_bt);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
