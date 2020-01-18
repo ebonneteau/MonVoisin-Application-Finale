@@ -1,6 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,10 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
     }
     private void getIncomingIntent(){
+        // This method rescues both neighbor avatar image
+        // and neighbor name
+        // from the contextual click of one neighbor in MyNeighbourRecyclerViewAdapter
+
         Log.d(TAG, "getIncomingIntent: checking for incoming intents.");
 
         if(getIntent().hasExtra("avatar_Url") && getIntent().hasExtra("item_list_avatar")){
@@ -45,20 +50,28 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
             String avatarUrl = getIntent().getStringExtra("avatar_Url");
             String avatarName = getIntent().getStringExtra("item_list_avatar");
 
-            setImage(avatarUrl, avatarName);
+            setImage(avatarUrl);
+            setNameOfCollapsingToolbar(avatarName); //Call method to inject avatarName as title of collapsingBar
         }
     }
-    private void setImage(String avatarUrl, String avatarName){
+    private void setImage(String avatarUrl){
+
         Log.d(TAG, "setImage: setting the image and name to widgets.");
-
-        TextView name = findViewById(R.id.item_list_name);
-        name.setText(avatarName);
-
         ImageView avatarImage = findViewById(R.id.item_list_avatar);
         Glide.with(this)
                 .asBitmap()
                 .load(avatarUrl)
                 .into(avatarImage);
+    }
+    private void setNameOfCollapsingToolbar (String avatarName){
+
+        // By default the CollapsingToolbarLayout name displayed is the app name.
+        // In this case it is "Neighbor Detail"
+        // This method display the name of the neighbor.
+        // in place of default title.
+        CollapsingToolbarLayout myTitleBar = findViewById(R.id.toolbar_layout);
+        myTitleBar.setTitle(avatarName);
+
     }
 
 
