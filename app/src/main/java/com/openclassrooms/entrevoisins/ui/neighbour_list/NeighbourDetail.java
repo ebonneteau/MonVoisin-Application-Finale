@@ -10,14 +10,25 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.events.AddFavoriteEvent;
+import com.openclassrooms.entrevoisins.model.Favorite;
+import com.openclassrooms.entrevoisins.model.Neighbour;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling Activity Android Studio type
     private static final String TAG = "NeighbourDetail";
+    public List<Favorite> mFavorites = new ArrayList<>();
+    private int mListId = 0;
+    private String mAvatarurl;
+    private String mAvatarName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +47,18 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_to_favorite_bt);
         fab.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 //add here method to add to favorite
                 //when star button is clicked
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Added to favorite", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Log.d(TAG, "Value of mListId: " + mListId );
+                Log.d(TAG, "Value of mAvatarName: " + mAvatarName );
+                Log.d(TAG, "Value of mAvatarurl: " + mAvatarurl );
+
+                mFavorites.add( new Favorite(mListId ,mAvatarName, mAvatarurl ));
             }
         });
         getIncomingIntent();
@@ -68,7 +85,24 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
             Log.d(TAG, "getIncomingIntent: found intent extras.");
 
             String avatarUrl = getIntent().getStringExtra("avatar_Url");
+                     //Verify the good url is returned and stored
+            Log.d(TAG, "getIncomingIntent avatarUrl: " + avatarUrl );
+            mAvatarurl = avatarUrl;
+            Log.d(TAG, "mAvatarurl has now value of " + mAvatarurl );
+
             String avatarName = getIntent().getStringExtra("item_list_avatar");
+            //Verify the good url is returned and stored
+            Log.d(TAG, "getIncomingIntent avatarUrl: " + avatarName );
+            mAvatarName = avatarName;
+            Log.d(TAG, "mAvatarName has now value of " + mAvatarName );
+
+            Integer neighbourListId = getIntent().getIntExtra("item_list_id", mListId);
+            //Verify the good id is returned and stored
+            Log.d(TAG, "getIncomingIntent: " + neighbourListId );
+            mListId = neighbourListId;
+            Log.d(TAG, "mListId has now value of " + mListId );
+
+
 
             setImage(avatarUrl);
             setNameOfCollapsingToolbar(avatarName); //Call method to inject avatarName as title of collapsingBar
@@ -82,13 +116,14 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
                 .asBitmap()
                 .load(avatarUrl)
                 .into(avatarImage);
+
     }
     private void setNameOfCollapsingToolbar (String avatarName){
 
-        // By default the CollapsingToolbarLayout name displayed is the app name.
+        // By default the CollapsingToolbarLayout name displayed, is the app name.
         // In this case it is "Neighbor Detail"
-        // This method display the name of the neighbor.
-        // in place of default title.
+        // This method displays the name of the neighbor.
+        // instead of default title.
         CollapsingToolbarLayout myTitleBar = findViewById(R.id.toolbar_layout);
         myTitleBar.setTitle(avatarName);
 

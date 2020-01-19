@@ -1,5 +1,6 @@
 package com.openclassrooms.entrevoisins.events;
 
+import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 /**
@@ -7,13 +8,14 @@ import com.openclassrooms.entrevoisins.model.Neighbour;
  */
 public class AddFavoriteEvent {
     public Neighbour neighbour;
+    public Favorite favorite;
 
 
     /**
      * Neighbour to get
      */
-    public AddFavoriteEvent(Neighbour neighbour) {
-        this.neighbour = neighbour;
+    public AddFavoriteEvent(Favorite favorite) {
+        this.favorite = favorite;
 
 
     }

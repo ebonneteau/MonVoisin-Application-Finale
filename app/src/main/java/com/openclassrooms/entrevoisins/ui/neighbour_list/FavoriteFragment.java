@@ -14,9 +14,8 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -62,7 +61,6 @@ public class FavoriteFragment extends Fragment {
         }
 
     }
-
 
     public void setText(String item) {
         TextView view = (TextView) getView().findViewById(R.id.main_content);

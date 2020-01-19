@@ -17,6 +17,8 @@ import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import org.greenrobot.eventbus.EventBus;
 import java.util.List;
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,7 +26,6 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
-    private Context  context; // Declare context for later use with Intent
     private static final String TAG = "MyNeighbourRView";
 
 
@@ -68,6 +69,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 Intent intent = new Intent( holder.mNeighbourAvatar.getContext() , NeighbourDetail.class );
                 intent.putExtra("avatar_Url", neighbour.getAvatarUrl());
                 intent.putExtra("item_list_avatar", neighbour.getName());
+                intent.putExtra("item_list_id",(Integer) neighbour.getId() );
 
 
                 holder.mNeighbourAvatar.getContext().startActivity(intent);
