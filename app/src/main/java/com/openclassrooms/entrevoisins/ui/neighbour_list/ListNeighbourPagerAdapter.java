@@ -29,7 +29,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
      * @return
      */
     @Override
-    public Fragment getItem(int position) {//TODO add new fragment, use switch/Case or if like in myapplication (fragments/PageAdapter)
+    public Fragment getItem(int position) {
         if (position == 0) {
             Log.d(TAG, "getItem() called with: position = [" + position + "]");
             return NeighbourFragment.newInstance(0);

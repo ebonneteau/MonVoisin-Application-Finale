@@ -10,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
-import com.openclassrooms.entrevoisins.events.AddFavoriteEvent;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import org.greenrobot.eventbus.EventBus;
@@ -62,15 +60,10 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
         holder.mNeighbourAvatar.setOnClickListener(new View.OnClickListener() {
 
-
-
             @Override
-            public void onClick(View v) {//TODO add method to view details of item
-
+            public void onClick(View v) {//method to view details of item
 
                 Log.d(TAG, "onClick: Neighbour to view details");
-
-
 
                 Intent intent = new Intent( holder.mNeighbourAvatar.getContext() , NeighbourDetail.class );
                 intent.putExtra("avatar_Url", neighbour.getAvatarUrl());

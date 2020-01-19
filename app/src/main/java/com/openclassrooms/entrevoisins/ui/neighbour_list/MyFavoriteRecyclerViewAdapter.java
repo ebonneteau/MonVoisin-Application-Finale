@@ -68,9 +68,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         public TextView mFavoriteName;
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
-        @BindView(R.id.item_list_add_button)
-        public ImageButton mAddButton;
-        public ImageView mFavorite;
+
 
         public ViewHolder(View view) {
             super(view);

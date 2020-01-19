@@ -14,6 +14,8 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class FavoriteFragment extends Fragment {
     private NeighbourApiService mApiService;
     private List<Favorite> mFavorites;
     private RecyclerView mRecyclerView;
+
 
     /**
      * Create and return a new instance
@@ -36,11 +39,12 @@ public class FavoriteFragment extends Fragment {
 
     @Override
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@Nullable LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_favorite_list, container, false);
         Context context = view.getContext();
+
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -51,14 +55,11 @@ public class FavoriteFragment extends Fragment {
 
 
     private void initList() {
-        if (mFavorites == null){
-            List<Favorite> mFavorites = new ArrayList<>();
-            mFavorites.add(0, new Favorite(1, "liste de vos favoris:)", "http://i.pravatar.cc/150?u=a042581f4e29026703d") );
 
+        if (mFavorites != null){
+            mFavorites = mApiService.getFavorites();
             mRecyclerView.setAdapter(new MyFavoriteRecyclerViewAdapter(mFavorites));
-        }else {
-        mFavorites = mApiService.getFavorites();
-        mRecyclerView.setAdapter(new MyFavoriteRecyclerViewAdapter(mFavorites));}
+        }
 
     }
 

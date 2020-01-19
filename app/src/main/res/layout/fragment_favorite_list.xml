@@ -11,3 +11,4 @@
     app:layoutManager="LinearLayoutManager"
     tools:context=".ui.neighbour_list.FavoriteFragment"
     tools:listitem="@layout/fragment_favorite" />
+
