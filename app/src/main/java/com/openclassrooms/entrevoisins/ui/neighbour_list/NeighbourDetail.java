@@ -24,7 +24,7 @@ import java.util.List;
 
 public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling Activity Android Studio type
     private static final String TAG = "NeighbourDetail";
-    public List<Favorite> mFavorites = new ArrayList<>();
+    public List<Favorite> mFavorite = new ArrayList<>();
     private int mListId = 0;
     private String mAvatarurl;
     private String mAvatarName;
@@ -57,8 +57,9 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
                 Log.d(TAG, "Value of mListId: " + mListId );
                 Log.d(TAG, "Value of mAvatarName: " + mAvatarName );
                 Log.d(TAG, "Value of mAvatarurl: " + mAvatarurl );
-
-                mFavorites.add( new Favorite(mListId ,mAvatarName, mAvatarurl ));
+                //Verify Favorites list size
+                mFavorite.add( new Favorite(mListId ,mAvatarName, mAvatarurl ));
+                Log.d(TAG, "Size of list Favorite: " + mFavorite.size() );
             }
         });
         getIncomingIntent();
@@ -69,14 +70,18 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home){
-            this.finish();
+           this.finish();
+            Log.d(TAG, "Clicked on home button: " );
+            Log.d(TAG, "Size of list Favorite: " + mFavorite.size() );
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void getIncomingIntent(){
-        // This method rescues both neighbor avatar image
-        // and neighbor name
+        // This method rescues
+        // neighbor avatar image
+        // neighbor name
+        // neighbor list id
         // from the contextual click of one neighbor in MyNeighbourRecyclerViewAdapter
 
         Log.d(TAG, "getIncomingIntent: checking for incoming intents.");

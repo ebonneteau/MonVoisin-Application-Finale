@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Favorite> mFavorite;
+    public List<Favorite> mFavorite;
     private static final String TAG = "MyFavRView";
 
 
@@ -34,6 +34,8 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_favorite, parent, false);
+        Log.d(TAG, "Size of list Favorite in  Favorite recyclerViewAdapter: " + mFavorite.size() );
+
         return new ViewHolder(view);
     }
 
