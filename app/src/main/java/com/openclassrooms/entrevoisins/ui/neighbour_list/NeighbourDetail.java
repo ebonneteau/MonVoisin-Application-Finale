@@ -12,9 +12,11 @@ import android.view.View;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.AddFavoriteEvent;
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -25,6 +27,7 @@ import java.util.List;
 public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling Activity Android Studio type
     private static final String TAG = "NeighbourDetail";
     public List<Favorite> mFavorite = new ArrayList<>();
+    private NeighbourApiService mApiService;
     private int mListId = 0;
     private String mAvatarurl;
     private String mAvatarName;
@@ -58,7 +61,9 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
                 Log.d(TAG, "Value of mAvatarName: " + mAvatarName );
                 Log.d(TAG, "Value of mAvatarurl: " + mAvatarurl );
                 //Verify Favorites list size
-                mFavorite.add( new Favorite(mListId ,mAvatarName, mAvatarurl ));
+                //mFavorite.add( new Favorite(mListId ,mAvatarName, mAvatarurl ));
+                mApiService = DI.getNeighbourApiService();
+                mApiService.addFavorite (new Favorite(mListId ,mAvatarName, mAvatarurl ));
                 Log.d(TAG, "Size of list Favorite: " + mFavorite.size() );
             }
         });
@@ -117,6 +122,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
         Log.d(TAG, "setImage: setting the image and name to widgets.");
         ImageView avatarImage = findViewById(R.id.item_list_avatar);
+
         Glide.with(this)
                 .asBitmap()
                 .load(avatarUrl)
