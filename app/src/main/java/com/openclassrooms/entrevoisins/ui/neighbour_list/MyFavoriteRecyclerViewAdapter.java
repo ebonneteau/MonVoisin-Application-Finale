@@ -1,5 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,21 +9,24 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.model.Favorite;
-import com.openclassrooms.entrevoisins.model.Neighbour;
 
-import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 //TODO Creation of this RecyclerView
 
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 
-    public List<Favorite> mFavorite;
+    private List<Favorite> mFavorite;
+
+
     private static final String TAG = "MyFavRView";
 
 
@@ -34,7 +38,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_favorite, parent, false);
-        Log.d(TAG, "Size of list Favorite in  Favorite recyclerViewAdapter: " + mFavorite.size() );
+        Log.d(TAG, "Size of list Favorite in  Favorite recyclerViewAdapter: " + mFavorite.size());
 
         return new ViewHolder(view);
     }
@@ -51,12 +55,28 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
 
         holder.mFavoriteAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {//TODO add method to view details
+            public void onClick(View v) {//method to view favorite details
                 Log.d(TAG, "onClick: Favorite to view details");
-                EventBus.getDefault().postSticky(mFavorite);
+                Intent intent = new Intent(holder.mFavoriteAvatar.getContext(), NeighbourDetail.class);
+                intent.putExtra("avatar_Url", favorite.getAvatarUrl());
+                intent.putExtra("item_list_avatar", favorite.getName());
+                intent.putExtra("item_list_id", (Integer) favorite.getId());
+
+                holder.mFavoriteAvatar.getContext().startActivity(intent);
+            }
+        });
+        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mFavorite.remove(favorite);
+                Log.d(TAG, "Size of list Favorite: " + mFavorite.size());
+                notifyDataSetChanged(); //This refresh the fragment list view automatically
+
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

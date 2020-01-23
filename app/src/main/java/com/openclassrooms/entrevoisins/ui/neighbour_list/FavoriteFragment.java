@@ -10,14 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 
@@ -56,27 +56,19 @@ public class FavoriteFragment extends Fragment {
 
     @Override
     public void onResume() {
-
+        // method to reload fragment each time user navigates on it
         super.onResume();
         initList();
     }
 
     private void initList() {
 
-
-            mFavorite = mApiService.getFavorites();
-            mRecyclerView.setAdapter(new MyFavoriteRecyclerViewAdapter(mFavorite));
-
-
-    }
-
-    public void setText(String item) {
-        TextView view = (TextView) getView().findViewById(R.id.main_content);
-        view.setText(item);
-        //Todo add recyclerview using api service
+        mFavorite = mApiService.getFavorites();
+        mRecyclerView.setAdapter(new MyFavoriteRecyclerViewAdapter(mFavorite));
 
 
     }
+
 
 }
 

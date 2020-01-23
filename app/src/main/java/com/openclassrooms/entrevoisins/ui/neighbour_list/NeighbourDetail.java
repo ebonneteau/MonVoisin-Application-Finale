@@ -13,24 +13,21 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
-import com.openclassrooms.entrevoisins.events.AddFavoriteEvent;
 import com.openclassrooms.entrevoisins.model.Favorite;
-import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling Activity Android Studio type
     private static final String TAG = "NeighbourDetail";
-    public List<Favorite> mFavorite = new ArrayList<>();
     private NeighbourApiService mApiService;
     private int mListId = 0;
     private String mAvatarurl;
     private String mAvatarName;
+
+
+
 
 
     @Override
@@ -60,11 +57,12 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
                 Log.d(TAG, "Value of mListId: " + mListId );
                 Log.d(TAG, "Value of mAvatarName: " + mAvatarName );
                 Log.d(TAG, "Value of mAvatarurl: " + mAvatarurl );
-                //Verify Favorites list size
-                //mFavorite.add( new Favorite(mListId ,mAvatarName, mAvatarurl ));
+                //Verify list favorite size
+
                 mApiService = DI.getNeighbourApiService();
                 mApiService.addFavorite (new Favorite(mListId ,mAvatarName, mAvatarurl ));
-                Log.d(TAG, "Size of list Favorite: " + mFavorite.size() );
+                Log.d(TAG, "Size of Favorite list: " + mApiService.getFavorites().size() );
+
             }
         });
         getIncomingIntent();
@@ -77,7 +75,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         if (id == android.R.id.home){
            this.finish();
             Log.d(TAG, "Clicked on home button: " );
-            Log.d(TAG, "Size of list Favorite: " + mFavorite.size() );
+
         }
         return super.onOptionsItemSelected(item);
     }
