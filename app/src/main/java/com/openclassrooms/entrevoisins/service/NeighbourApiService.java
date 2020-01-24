@@ -35,11 +35,7 @@ public interface NeighbourApiService {
      */
     void addFavorite (Favorite favorite);
 
-    /**
-     * delete a favorite
-     *
-     */
-    void deleteFavorite (Favorite favorite);
+
 
 }
 

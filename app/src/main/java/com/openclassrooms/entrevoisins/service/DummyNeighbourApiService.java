@@ -27,11 +27,7 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
     public List<Favorite> getFavorites() {
 
             return favorites;
-
-
     }
-
-
 
 
     /**
@@ -47,8 +43,5 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
         favorites.add(favorite);
     }
 
-    @Override
-    public void deleteFavorite(Favorite favorite) {
 
-    }
 }

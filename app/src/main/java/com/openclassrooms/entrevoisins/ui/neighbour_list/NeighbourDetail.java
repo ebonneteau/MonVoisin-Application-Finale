@@ -1,5 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.icu.text.StringSearch;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -11,11 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.ObjectKey;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,8 +28,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
     private int mListId = 0;
     private String mAvatarurl;
     private String mAvatarName;
-
-
+    private String mAvatarExistingName;
 
 
 
@@ -52,22 +54,44 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
             public void onClick(View view) {
                 //add here method to add to favorite
                 //when star button is clicked
-                Snackbar.make(view, "Added to favorite", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
                 Log.d(TAG, "Value of mListId: " + mListId );
                 Log.d(TAG, "Value of mAvatarName: " + mAvatarName );
                 Log.d(TAG, "Value of mAvatarurl: " + mAvatarurl );
                 //Verify list favorite size
 
                 mApiService = DI.getNeighbourApiService();
+                int favoriteListSize = mApiService.getFavorites().size();
+
+
+
+                if (favoriteListSize == 0){
                 mApiService.addFavorite (new Favorite(mListId ,mAvatarName, mAvatarurl ));
-                Log.d(TAG, "Size of Favorite list: " + mApiService.getFavorites().size() );
+                favoriteListSize = mApiService.getFavorites().size();
+                Log.d(TAG, "Size of Favorite list: " + favoriteListSize );
+                Snackbar.make(view, "This is your first added favorite !!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+
+                }else if (mApiService.getFavorites().contains((String) mAvatarName)){//todo debug this
+                    Snackbar.make(view, "favorite yet exist !!!!!" , Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else {
+                    mApiService.addFavorite (new Favorite(mListId ,mAvatarName, mAvatarurl ));
+                    favoriteListSize = mApiService.getFavorites().size();
+                    Log.d(TAG, "Size of Favorite list: " + favoriteListSize );
+                    Snackbar.make(view, "you added favorite number" +favoriteListSize, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
 
             }
         });
         getIncomingIntent();
 
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
