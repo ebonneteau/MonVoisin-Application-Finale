@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="280dp"
         android:layout_marginTop="@dimen/appbar_padding_top"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -50,12 +50,28 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
     <android.support.v7.widget.CardView
+        android:contentDescription="@string/bottom_sheet_behavior"
         android:id="@+id/neighbour_card_view"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_gravity="center|fill_horizontal" />
+        android:layout_height="160dp"
+        android:layout_gravity="center|fill_horizontal" >
 
-    <include layout="@layout/content_neighbour_detail" />
+        <TextView
+            android:id="@+id/item_list_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <ImageButton
+            android:id="@+id/neighbor_native_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            app:srcCompat="@drawable/ic_action_location" />
+    </android.support.v7.widget.CardView>
+
+    <include layout="@layout/content_neighbour_detail"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_to_favorite_bt"
@@ -67,5 +83,6 @@
         app:layout_anchor="@id/toolbar"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/btn_star" />
+
 
 </android.support.design.widget.CoordinatorLayout>
