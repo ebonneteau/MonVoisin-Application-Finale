@@ -45,10 +45,18 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
 
+
+
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
+    <android.support.v7.widget.CardView
+        android:id="@+id/neighbour_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_gravity="center|fill_horizontal" />
 
     <include layout="@layout/content_neighbour_detail" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_to_favorite_bt"
         android:layout_width="wrap_content"
@@ -59,4 +67,5 @@
         app:layout_anchor="@id/toolbar"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@android:drawable/btn_star" />
+
 </android.support.design.widget.CoordinatorLayout>
