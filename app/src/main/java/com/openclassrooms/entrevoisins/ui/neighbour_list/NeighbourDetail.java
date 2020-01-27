@@ -6,11 +6,13 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
@@ -71,7 +73,11 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
                             .setAction("Action", null).show();
 
 
-                } else if (mApiService.getFavorites().contains((String) mAvatarName)) {//todo debug this
+                } else if (mApiService.getFavorites().contains( new Favorite(mListId,mAvatarName,mAvatarurl))) {
+                    //create a new object
+                    //per existing index
+                    //if object is not null
+                    //compare object
                     Snackbar.make(view, "favorite yet exist !!!!!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 } else {
@@ -104,7 +110,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         // This method rescues
         // neighbor avatar image
         // neighbor name
-        // neighbor list id
+        // neighbor list id (UID)
         // from the contextual click of one neighbor in MyNeighbourRecyclerViewAdapter
 
         Log.d(TAG, "getIncomingIntent: checking for incoming intents.");
@@ -156,6 +162,9 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         // instead of default title.
         CollapsingToolbarLayout myTitleBar = findViewById(R.id.toolbar_layout);
         myTitleBar.setTitle(avatarName);
+        TextView mCardViewTitle = findViewById(R.id.neighbor_detail_name); //add name into 1st card
+        mCardViewTitle.setText(avatarName);
+
 
     }
 

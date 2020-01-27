@@ -61,6 +61,7 @@
         android:id="@+id/add_to_favorite_bt"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginRight="8dp"
         android:tint="#FFEB3B"
         app:backgroundTint="#FDFCFC"
         app:layout_anchor="@id/toolbar_layout"
