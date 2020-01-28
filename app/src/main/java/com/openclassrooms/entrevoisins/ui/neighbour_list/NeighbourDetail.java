@@ -15,23 +15,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.ObjectKey;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling Activity Android Studio type
     private static final String TAG = "NeighbourDetail";
     private NeighbourApiService mApiService;
-    private int mListId = 0;
+    private int mListId;
     private String mAvatarurl;
     private String mAvatarName;
-    private String mAvatarExistingName;
+
 
 
     @Override
@@ -125,7 +123,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
             Log.d(TAG, "mAvatarurl has now value of " + mAvatarurl);
 
             String avatarName = getIntent().getStringExtra("item_list_avatar");
-            //Verify the good url is returned and stored
+            //Verify the good name is returned and stored
             Log.d(TAG, "getIncomingIntent avatarName: " + avatarName);
             mAvatarName = avatarName;
             Log.d(TAG, "mAvatarName has now value of " + mAvatarName);
@@ -136,9 +134,8 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
             mListId = neighbourListId;
             Log.d(TAG, "mListId has now value of " + mListId);
 
-
-            setImage(avatarUrl);
-            setNameOfCollapsingToolbar(avatarName); //Call method to inject avatarName as title of collapsingBar
+            setImage(avatarUrl); //Call method to inject neighbor image (avatarUrl)
+            setAllNeededValues(avatarName); //Call method to inject avatarName as title of collapsingBar
         }
     }
 
@@ -154,7 +151,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
     }
 
-    private void setNameOfCollapsingToolbar(String avatarName) {
+    private void setAllNeededValues (String avatarName) {
 
         // By default the CollapsingToolbarLayout name displayed, is the app name.
         // In this case it is "Neighbor Detail"
@@ -162,8 +159,18 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         // instead of default title.
         CollapsingToolbarLayout myTitleBar = findViewById(R.id.toolbar_layout);
         myTitleBar.setTitle(avatarName);
-        TextView mCardViewTitle = findViewById(R.id.neighbor_detail_name); //add name into 1st card
+        //add name as title into 1st card
+        TextView mCardViewTitle = findViewById(R.id.neighbor_detail_name);
         mCardViewTitle.setText(avatarName);
+        //add name-ville as living location
+        TextView mCardViewLivingLocation = findViewById(R.id.living_location_text);
+        mCardViewLivingLocation.setText(String.format("%s-Ville", avatarName));
+        //add name-phone number as phone number
+        TextView mCardViewPhoneNumber = findViewById(R.id.phone_number_text);
+        mCardViewPhoneNumber.setText(String.format("%s-Phone number", avatarName));
+        //add name@facebook.com as facebook address
+        TextView mCardViewFacebookAddress = findViewById(R.id.facebook_address_text);
+        mCardViewFacebookAddress.setText(String.format("%s@facebook.com", avatarName));
 
 
     }
