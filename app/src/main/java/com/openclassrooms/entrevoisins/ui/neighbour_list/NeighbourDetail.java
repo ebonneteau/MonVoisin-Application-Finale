@@ -1,19 +1,18 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.icu.text.StringSearch;
+import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
@@ -32,11 +31,15 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
 
 
+
+
+
+    @SuppressLint("RestrictedApi") //enable to use
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neighbour_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Log.d(TAG, "onCreate: started ");
@@ -45,52 +48,74 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_to_favorite_bt);
-        fab.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                //add here method to add to favorite
-                //when star button is clicked
-
-                Log.d(TAG, "Value of mListId: " + mListId);
-                Log.d(TAG, "Value of mAvatarName: " + mAvatarName);
-                Log.d(TAG, "Value of mAvatarurl: " + mAvatarurl);
-                //Verify list favorite size
-
-                mApiService = DI.getNeighbourApiService();
-                int favoriteListSize = mApiService.getFavorites().size();
-
-
-                if (favoriteListSize == 0) {
-                    mApiService.addFavorite(new Favorite(mListId, mAvatarName, mAvatarurl));
-                    favoriteListSize = mApiService.getFavorites().size();
-                    Log.d(TAG, "Size of Favorite list: " + favoriteListSize);
-                    Snackbar.make(view, "This is your first added favorite !!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-
-                } else if (mApiService.getFavorites().contains( new Favorite(mListId,mAvatarName,mAvatarurl))) {
-                    //create a new object
-                    //per existing index
-                    //if object is not null
-                    //compare object
-                    Snackbar.make(view, "favorite yet exist !!!!!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                } else {
-                    mApiService.addFavorite(new Favorite(mListId, mAvatarName, mAvatarurl));
-                    favoriteListSize = mApiService.getFavorites().size();
-                    Log.d(TAG, "Size of Favorite list: " + favoriteListSize);
-                    Snackbar.make(view, "you added favorite number" + favoriteListSize, Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-
-            }
-        });
+        //Verify if Neighbor is already part of Favorite list
+        //If it's the case, then favorite button on will be shown
+        //Clicking on it will suppress the neighbor from favorite list
+        //Then, button will turn to off view
+        mApiService = DI.getNeighbourApiService();
         getIncomingIntent();
 
-    }
+                FloatingActionButton mFab =  findViewById(R.id.add_to_favorite_bt);
+        if (mApiService.getFavorites().contains( new Favorite(mListId,mAvatarName,mAvatarurl))){
+            mFab.setImageResource(R.drawable.ic_star_white_24dp);
+        }else {
+            mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
+
+        }
+                mFab.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        //add to favorite
+                        //when star button is clicked
+
+                        Log.d(TAG, "Value of mListId: " + mListId);
+                        Log.d(TAG, "Value of mAvatarName: " + mAvatarName);
+                        Log.d(TAG, "Value of mAvatarurl: " + mAvatarurl);
+                        //Verify list favorite size
+
+                        mApiService = DI.getNeighbourApiService();
+                        int favoriteListSize = mApiService.getFavorites().size();
+
+
+
+                        //if (favoriteListSize == 0) {
+                        //    mApiService.addFavorite(new Favorite(mListId, mAvatarName, mAvatarurl));
+                        //    favoriteListSize = mApiService.getFavorites().size();
+                        //    Log.d(TAG, "Size of Favorite list: " + favoriteListSize);
+                        //    Snackbar.make(view, "This is your first added favorite !!", Snackbar.LENGTH_LONG)
+                        //            .setAction("Action", null).show();
+
+                        //}
+                        if (mApiService.getFavorites().contains( new Favorite(mListId,mAvatarName,mAvatarurl))) {
+                            //create a new object
+                            //per existing index
+                            //if object is not null
+                            //compare object
+                            mFab.setImageResource(R.drawable.ic_star_white_24dp);
+                            mApiService.deleteFavorite(new Favorite (mListId, mAvatarName, mAvatarurl) );
+                            Snackbar.make(view, "removing favorite !!!!!", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                            mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
+
+
+                        } else {
+                            mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
+                            mApiService.addFavorite(new Favorite(mListId, mAvatarName, mAvatarurl));
+                            //favoriteListSize = mApiService.getFavorites().size();
+                            Log.d(TAG, "Size of Favorite list: " + favoriteListSize);
+                            Snackbar.make(view, "you added favorite number: " + favoriteListSize, Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                            mFab.setImageResource(R.drawable.ic_star_white_24dp);
+
+                        }
+
+                    }
+                });
+                getIncomingIntent();
+        }
+
+
 
 
     @Override
@@ -135,7 +160,9 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
             Log.d(TAG, "mListId has now value of " + mListId);
 
             setImage(avatarUrl); //Call method to inject neighbor image (avatarUrl)
-            setAllNeededValues(avatarName); //Call method to inject avatarName as title of collapsingBar
+            setAllNeededValues(avatarName);
+            //Call method to inject avatarName as title of collapsingBar
+            //as well as other needed values
         }
     }
 

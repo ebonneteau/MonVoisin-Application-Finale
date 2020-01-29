@@ -37,7 +37,6 @@
                 app:layout_collapseParallaxMultiplier="0.0"
                 />
 
-
             <!--    centerCrop to get image matches full parent
                        -->
 
@@ -51,7 +50,8 @@
             <!--    android:layout_height="?attr/actionBarSize"
                     This option enable the to match behavior of the
                     actionBar (smoothly general scroll-up
-                    solves bug with home button not showing completely -->
+                    solves bug with home button not showing completely
+                     -->
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -66,7 +66,11 @@
         app:backgroundTint="#FDFCFC"
         app:layout_anchor="@id/toolbar_layout"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/btn_star" />
+        app:srcCompat="@android:drawable/btn_star"
+        />
+
+
+
 
     <include layout="@layout/content_neighbour_detail" />
 

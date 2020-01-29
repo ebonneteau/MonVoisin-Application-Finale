@@ -42,6 +42,9 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
     public void addFavorite(Favorite favorite) {
         favorites.add(favorite);
     }
-
+    @Override
+    public void deleteFavorite(Favorite favorite){
+        favorites.remove(favorite);
+    }
 
 }
