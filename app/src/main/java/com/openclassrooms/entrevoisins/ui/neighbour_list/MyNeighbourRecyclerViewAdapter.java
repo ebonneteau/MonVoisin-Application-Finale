@@ -1,6 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,7 +17,7 @@ import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import org.greenrobot.eventbus.EventBus;
 import java.util.List;
-import java.util.Objects;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,8 +61,9 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
         holder.mNeighbourAvatar.setOnClickListener(new View.OnClickListener() {
 
+            //method to view details of item click
             @Override
-            public void onClick(View v) {//method to view details of item
+            public void onClick(View v) {
 
                 Log.d(TAG, "onClick: Neighbour to view details");
 

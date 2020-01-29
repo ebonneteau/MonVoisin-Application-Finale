@@ -9,18 +9,18 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
 import com.openclassrooms.entrevoisins.model.Favorite;
-
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-//TODO Creation of this RecyclerView
+
 
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 
@@ -68,10 +68,13 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                mFavorite.remove(favorite);
+                EventBus.getDefault().post(new DeleteFavoriteEvent(favorite));
                 Log.d(TAG, "Size of list Favorite: " + mFavorite.size());
-                notifyDataSetChanged(); //This refresh the fragment list view automatically
+
+                // This method refreshes the fragment list view automatically
+                // Needed only when not using EventBus (ex: direct List manipulation)
+                // notifyDataSetChanged();
+                // Keeping this for personal records
 
             }
         });
