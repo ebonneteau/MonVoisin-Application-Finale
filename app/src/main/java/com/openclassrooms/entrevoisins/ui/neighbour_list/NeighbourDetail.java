@@ -1,7 +1,5 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.annotation.SuppressLint;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -10,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -18,8 +15,6 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-
-
 
 
 public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling Activity Android Studio type
@@ -31,15 +26,11 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
 
 
-
-
-
-    @SuppressLint("RestrictedApi") //enable to use
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_neighbour_detail);
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Log.d(TAG, "onCreate: started ");
@@ -48,83 +39,65 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Verify if Neighbor is already part of Favorite list
-        //If it's the case, then favorite button on will be shown
-        //Clicking on it will suppress the neighbor from favorite list
-        //Then, button will turn to off view
         mApiService = DI.getNeighbourApiService();
+        //rescues ListId, AvatarName and Avatarurl from Neighbor or favorite recycler "click"
         getIncomingIntent();
+        //Verify if Neighbor is already part of Favorite list
+        //If it's the case, then favorite button on will be shown as ticked (full yellow)
+        //Else this button wil be shown as un-ticked (yellow border only)
+        //Yellow color overrides white color in xml file
 
-                FloatingActionButton mFab =  findViewById(R.id.add_to_favorite_bt);
-        if (mApiService.getFavorites().contains( new Favorite(mListId,mAvatarName,mAvatarurl))){
+        FloatingActionButton mFab = findViewById(R.id.add_to_favorite_bt);
+        if (mApiService.getFavorites().contains(new Favorite(mListId, mAvatarName, mAvatarurl))) {
             mFab.setImageResource(R.drawable.ic_star_white_24dp);
-        }else {
+
+        } else {
             mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
 
         }
-                mFab.setOnClickListener(new View.OnClickListener() {
+        mFab.setOnClickListener(view -> {
+            //add to, or remove from Favorite list
+            //on star button  clicking
 
-                    @Override
-                    public void onClick(View view) {
-                        //add to favorite
-                        //when star button is clicked
+            Log.d(TAG, "Value of mListId: " + mListId);
+            Log.d(TAG, "Value of mAvatarName: " + mAvatarName);
+            Log.d(TAG, "Value of mAvatarurl: " + mAvatarurl);
+            //Verify list favorite size
 
-                        Log.d(TAG, "Value of mListId: " + mListId);
-                        Log.d(TAG, "Value of mAvatarName: " + mAvatarName);
-                        Log.d(TAG, "Value of mAvatarurl: " + mAvatarurl);
-                        //Verify list favorite size
+            mApiService = DI.getNeighbourApiService();
+            int favoriteListSize = mApiService.getFavorites().size();
+            //create a new object
+            //per existing index
+            //if object is not null
+            //compare object
+            if (mApiService.getFavorites().contains(new Favorite(mListId, mAvatarName, mAvatarurl))) {
 
-                        mApiService = DI.getNeighbourApiService();
-                        int favoriteListSize = mApiService.getFavorites().size();
-
-
-
-                        //if (favoriteListSize == 0) {
-                        //    mApiService.addFavorite(new Favorite(mListId, mAvatarName, mAvatarurl));
-                        //    favoriteListSize = mApiService.getFavorites().size();
-                        //    Log.d(TAG, "Size of Favorite list: " + favoriteListSize);
-                        //    Snackbar.make(view, "This is your first added favorite !!", Snackbar.LENGTH_LONG)
-                        //            .setAction("Action", null).show();
-
-                        //}
-                        if (mApiService.getFavorites().contains( new Favorite(mListId,mAvatarName,mAvatarurl))) {
-                            //create a new object
-                            //per existing index
-                            //if object is not null
-                            //compare object
-                            mFab.setImageResource(R.drawable.ic_star_white_24dp);
-                            mApiService.deleteFavorite(new Favorite (mListId, mAvatarName, mAvatarurl) );
-                            Snackbar.make(view, "removing favorite !!!!!", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                            mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
+                mFab.setImageResource(R.drawable.ic_star_white_24dp);
+                mApiService.deleteFavorite(new Favorite(mListId, mAvatarName, mAvatarurl));
+                Snackbar.make(view, mAvatarName + " is removed from your favorites", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
 
 
-                        } else {
-                            mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
-                            mApiService.addFavorite(new Favorite(mListId, mAvatarName, mAvatarurl));
-                            //favoriteListSize = mApiService.getFavorites().size();
-                            Log.d(TAG, "Size of Favorite list: " + favoriteListSize);
-                            Snackbar.make(view, "you added favorite number: " + favoriteListSize, Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                            mFab.setImageResource(R.drawable.ic_star_white_24dp);
+            } else {
+                mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
+                mApiService.addFavorite(new Favorite(mListId, mAvatarName, mAvatarurl));
+                //favoriteListSize = mApiService.getFavorites().size();
+                Log.d(TAG, mAvatarName + " is added to your favorites");
+                Snackbar.make(view, mAvatarName + " is added to your favorites", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                mFab.setImageResource(R.drawable.ic_star_white_24dp);
+            }
+        });
 
-                        }
-
-                    }
-                });
-                getIncomingIntent();
-        }
-
-
-
-
+    }
+    //Method for home button
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             this.finish();
             Log.d(TAG, "Clicked on home button: ");
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -135,6 +108,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         // neighbor name
         // neighbor list id (UID)
         // from the contextual click of one neighbor in MyNeighbourRecyclerViewAdapter
+        // or from MyFavoriteRecyclerViewAdapter
 
         Log.d(TAG, "getIncomingIntent: checking for incoming intents.");
 
@@ -178,7 +152,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
     }
 
-    private void setAllNeededValues (String avatarName) {
+    private void setAllNeededValues(String avatarName) {
 
         // By default the CollapsingToolbarLayout name displayed, is the app name.
         // In this case it is "Neighbor Detail"
