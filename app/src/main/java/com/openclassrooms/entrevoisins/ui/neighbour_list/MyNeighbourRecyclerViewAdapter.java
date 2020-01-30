@@ -2,15 +2,17 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodSession;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
@@ -20,14 +22,13 @@ import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
-
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+
 
 
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
@@ -70,11 +71,12 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
             mApiService = DI.getNeighbourApiService();
             EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
-            mApiService.deleteFavorite(new Favorite(mTempNeighbourId,mTempNeighborName,mTempNeighbourAvatarUrl) );
+            if (!mApiService.getFavorites().isEmpty()){
+            //Delete also the corresponding Favorite from favorite fragment view
+            EventBus.getDefault().post(new DeleteFavoriteEvent(new Favorite(mTempNeighbourId,mTempNeighborName,mTempNeighbourAvatarUrl)));
 
 
-
-
+            }
 
         });
 

@@ -1,5 +1,6 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -36,12 +37,11 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
         }
         if (position == 1) {
             Log.d(TAG, "getItem() called with: position = [" + position + "]");
+
             return FavoriteFragment.newInstance(1);
         } else
             return null;
     }
-
-
 
 
 

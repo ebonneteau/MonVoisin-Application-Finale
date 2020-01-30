@@ -35,7 +35,7 @@ public class FavoriteFragment extends Fragment {
      * @param i
      * @return @{@link FavoriteFragment}
      */
-    public static FavoriteFragment newInstance(int i) { //TODO Create FavoriteFragment
+    public static FavoriteFragment newInstance(int i) {
         FavoriteFragment fragment = new FavoriteFragment();
         return fragment;
     }
@@ -59,6 +59,7 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onResume() {
         // method to reload fragment each time user navigates on it
+        // //(...not really eventually cf.remove favorite from NeighborRecycler)
         super.onResume();
         initList();
     }
@@ -82,6 +83,9 @@ public class FavoriteFragment extends Fragment {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
+
+
     /**
      * Fired if the user clicks on a delete button
      *

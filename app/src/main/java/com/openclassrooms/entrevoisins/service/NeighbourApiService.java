@@ -5,6 +5,7 @@ import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 
 
+
 import java.util.List;
 
 
@@ -36,6 +37,8 @@ public interface NeighbourApiService {
     void addFavorite (Favorite favorite);
 
     void deleteFavorite (Favorite favorite);
+
+
 
 }
 
