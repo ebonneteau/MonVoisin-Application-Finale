@@ -21,7 +21,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
     private static final String TAG = "NeighbourDetail";
     private NeighbourApiService mApiService;
     private int mListId;
-    private String mAvatarurl;
+    private String mAvatarUrl;
     private String mAvatarName;
 
 
@@ -48,7 +48,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         //Yellow color overrides white color in xml file
 
         FloatingActionButton mFab = findViewById(R.id.add_to_favorite_bt);
-        if (mApiService.getFavorites().contains(new Favorite(mListId, mAvatarName, mAvatarurl))) {
+        if (mApiService.getFavorites().contains(new Favorite(mListId, mAvatarName, mAvatarUrl))) {
             mFab.setImageResource(R.drawable.ic_star_white_24dp);
 
         } else {
@@ -61,19 +61,19 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
             Log.d(TAG, "Value of mListId: " + mListId);
             Log.d(TAG, "Value of mAvatarName: " + mAvatarName);
-            Log.d(TAG, "Value of mAvatarurl: " + mAvatarurl);
+            Log.d(TAG, "Value of mAvatarurl: " + mAvatarUrl);
             //Verify list favorite size
 
             mApiService = DI.getNeighbourApiService();
-            int favoriteListSize = mApiService.getFavorites().size();
+
             //create a new object
             //per existing index
             //if object is not null
             //compare object
-            if (mApiService.getFavorites().contains(new Favorite(mListId, mAvatarName, mAvatarurl))) {
+            if (mApiService.getFavorites().contains(new Favorite(mListId, mAvatarName, mAvatarUrl))) {
 
                 mFab.setImageResource(R.drawable.ic_star_white_24dp);
-                mApiService.deleteFavorite(new Favorite(mListId, mAvatarName, mAvatarurl));
+                mApiService.deleteFavorite(new Favorite(mListId, mAvatarName, mAvatarUrl));
                 Snackbar.make(view, mAvatarName + " is removed from your favorites", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
@@ -81,8 +81,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
             } else {
                 mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
-                mApiService.addFavorite(new Favorite(mListId, mAvatarName, mAvatarurl));
-                //favoriteListSize = mApiService.getFavorites().size();
+                mApiService.addFavorite(new Favorite(mListId, mAvatarName, mAvatarUrl));
                 Log.d(TAG, mAvatarName + " is added to your favorites");
                 Snackbar.make(view, mAvatarName + " is added to your favorites", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -118,8 +117,8 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
             String avatarUrl = getIntent().getStringExtra("avatar_Url");
             //Verify the good url is returned and stored
             Log.d(TAG, "getIncomingIntent avatarUrl: " + avatarUrl);
-            mAvatarurl = avatarUrl;
-            Log.d(TAG, "mAvatarurl has now value of " + mAvatarurl);
+            mAvatarUrl = avatarUrl;
+            Log.d(TAG, "mAvatarurl has now value of " + mAvatarUrl);
 
             String avatarName = getIntent().getStringExtra("item_list_avatar");
             //Verify the good name is returned and stored

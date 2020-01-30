@@ -15,7 +15,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
     // UI Components
     @BindView(R.id.tabs)
-    TabLayout mTabLayout; //TODO refer to the good course for TabLayout
+    TabLayout mTabLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.container)
@@ -35,4 +35,5 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
+
 }

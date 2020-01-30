@@ -12,12 +12,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
 import com.openclassrooms.entrevoisins.model.Favorite;
+import com.openclassrooms.entrevoisins.model.Neighbour;
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+
 import org.greenrobot.eventbus.EventBus;
-
+import org.jetbrains.annotations.NotNull;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -27,13 +30,16 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
     private List<Favorite> mFavorite;
 
 
+
     private static final String TAG = "MyFavRView";
 
 
-    public MyFavoriteRecyclerViewAdapter(List<Favorite> items) {
+    MyFavoriteRecyclerViewAdapter(List<Favorite> items) {
         mFavorite = items;
+
     }
 
+    @NotNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -52,34 +58,27 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mFavoriteAvatar);
 
+        //method Lambda to view favorite details
+        holder.mFavoriteAvatar.setOnClickListener(v -> {
+            Log.d(TAG, "onClick: Favorite to view details");
+            Intent intent = new Intent(holder.mFavoriteAvatar.getContext(), NeighbourDetail.class);
+            intent.putExtra("avatar_Url", favorite.getAvatarUrl());
+            intent.putExtra("item_list_avatar", favorite.getName());
+            intent.putExtra("item_list_id",  favorite.getId());
 
-        holder.mFavoriteAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {//method to view favorite details
-                Log.d(TAG, "onClick: Favorite to view details");
-                Intent intent = new Intent(holder.mFavoriteAvatar.getContext(), NeighbourDetail.class);
-                intent.putExtra("avatar_Url", favorite.getAvatarUrl());
-                intent.putExtra("item_list_avatar", favorite.getName());
-                intent.putExtra("item_list_id", (Integer) favorite.getId());
-
-                holder.mFavoriteAvatar.getContext().startActivity(intent);
-            }
+            holder.mFavoriteAvatar.getContext().startActivity(intent);
         });
-        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new DeleteFavoriteEvent(favorite));
-                Log.d(TAG, "Size of list Favorite: " + mFavorite.size());
+        holder.mDeleteButton.setOnClickListener(v -> {
+            EventBus.getDefault().post(new DeleteFavoriteEvent(favorite));
+            Log.d(TAG, "Size of list Favorite: " + mFavorite.size());
 
-                // This method refreshes the fragment list view automatically
-                // Needed only when not using EventBus (ex: direct List manipulation)
-                // notifyDataSetChanged();
-                // Keeping this for personal records
+            // This method refreshes the fragment list view automatically
+            // Needed only when not using EventBus (ex: direct List manipulation)
+            notifyDataSetChanged();
+            // Keeping this for personal records
 
-            }
         });
     }
-
 
     @Override
     public int getItemCount() {
@@ -95,9 +94,14 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         public ImageButton mDeleteButton;
 
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
+    public void OnNotifyDataChanged(){
+        notifyDataSetChanged();
+
+    }
+
 }
