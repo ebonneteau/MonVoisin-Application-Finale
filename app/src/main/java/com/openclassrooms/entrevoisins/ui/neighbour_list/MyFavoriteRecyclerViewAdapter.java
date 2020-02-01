@@ -72,7 +72,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
 
             // This method refreshes the fragment list view automatically
             // Needed only when not using EventBus (ex: direct List manipulation)
-            notifyDataSetChanged();
+            // notifyDataSetChanged();
             // Keeping this for personal records
 
         });

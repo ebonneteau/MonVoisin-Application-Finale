@@ -36,7 +36,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     private final List<Neighbour> mNeighbours;
     private static final String TAG = "MyNeighbourRView";
     private NeighbourApiService mApiService;
-    private List<Favorite> mFavoriteToRemoveOnly;
+
 
 
 

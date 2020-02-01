@@ -3,7 +3,7 @@ package com.openclassrooms.entrevoisins.service;
 
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-
+import com.openclassrooms.entrevoisins.model.SupNeighbour;
 
 
 import java.util.List;
@@ -38,8 +38,12 @@ public interface NeighbourApiService {
 
     void deleteFavorite (Favorite favorite);
 
+    /**
+     * add a supplementary neighbor
+     *
+     */
 
-
+    List<SupNeighbour> GetSupNeighbor();
 }
 
 
