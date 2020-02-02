@@ -39,8 +39,8 @@ public interface NeighbourApiService {
     void deleteFavorite (Favorite favorite);
 
     /**
-     * add a supplementary neighbor
-     *
+     * get a supplementary neighbor
+     * from list SupNeighbour
      */
 
     List<SupNeighbour> GetSupNeighbor();

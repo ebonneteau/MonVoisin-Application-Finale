@@ -56,7 +56,7 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
     public List<SupNeighbour> GetSupNeighbor() {
         Random rand = new Random();
         return Collections.singletonList(supNeighbour.get(rand.nextInt(supNeighbour.size())));
-        
+
     }
 
 

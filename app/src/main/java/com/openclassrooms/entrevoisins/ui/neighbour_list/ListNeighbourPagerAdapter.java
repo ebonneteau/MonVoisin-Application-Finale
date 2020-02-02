@@ -1,6 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,6 +10,7 @@ import android.util.Log;
 
 public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
     private static final String TAG = "ListNeighbourPagerAdap";
+
 
     public ListNeighbourPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -42,6 +44,7 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
         } else
             return null;
     }
+
 
 
 

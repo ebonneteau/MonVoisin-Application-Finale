@@ -1,6 +1,9 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.annotation.RestrictTo;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,11 +32,13 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
 
 
 
+
     private static final String TAG = "MyFavRView";
 
 
     MyFavoriteRecyclerViewAdapter(List<Favorite> items) {
         mFavorite = items;
+
 
     }
 
@@ -47,9 +52,12 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Favorite favorite = mFavorite.get(position);
+
+
         holder.mFavoriteName.setText(favorite.getName());
         Glide.with(holder.mFavoriteAvatar.getContext())
                 .load(favorite.getAvatarUrl())
@@ -76,6 +84,8 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
             // Keeping this for personal records
 
         });
+
+
     }
 
     @Override
@@ -90,6 +100,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         public TextView mFavoriteName;
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
+
 
 
         ViewHolder(View view) {

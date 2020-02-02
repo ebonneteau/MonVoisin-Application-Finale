@@ -1,7 +1,9 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodSession;
+
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,8 +29,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-
 
 
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
@@ -49,11 +49,13 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
     @NotNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_neighbour, parent, false);
         return new ViewHolder(view);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Neighbour neighbour = mNeighbours.get(position);
@@ -95,6 +97,10 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
             holder.mNeighbourAvatar.getContext().startActivity(intent);
 
         });
+
+
+
+
     }
 
     @Override
@@ -109,6 +115,10 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         public TextView mNeighbourName;
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
+
+
+
+
 
 
         ViewHolder(View view) {

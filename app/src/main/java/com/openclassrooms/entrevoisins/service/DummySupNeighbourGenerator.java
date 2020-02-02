@@ -10,16 +10,14 @@ import java.util.List;
 public abstract class DummySupNeighbourGenerator {
 
     public static List<SupNeighbour> DUMMY_SUP_NEIGHBOURS = Arrays.asList(
-            new SupNeighbour(1, "Andrea", "https://i.pravatar.cc/"),
-            new SupNeighbour(2, "Marilyne", "https://i.pravatar.cc/"),
-            new SupNeighbour(3, "Armando", "https://i.pravatar.cc/"),
-            new SupNeighbour(4, "Vicenzo", "https://i.pravatar.cc/"),
-            new SupNeighbour(5, "Ursula", "https://i.pravatar.cc/"),
-            new SupNeighbour(6, "Yvonne", "https://i.pravatar.cc/")
+            new SupNeighbour(13, "Andrea", "https://i.pravatar.cc/"),
+            new SupNeighbour(14, "Marilyne", "https://i.pravatar.cc/"),
+            new SupNeighbour(15, "Armando", "https://i.pravatar.cc/"),
+            new SupNeighbour(16, "Vicenzo", "https://i.pravatar.cc/"),
+            new SupNeighbour(17, "Ursula", "https://i.pravatar.cc/"),
+            new SupNeighbour(18, "Yvonne", "https://i.pravatar.cc/")
 
     );
-
-
 
 
 
