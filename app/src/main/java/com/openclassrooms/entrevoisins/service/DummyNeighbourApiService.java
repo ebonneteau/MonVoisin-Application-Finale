@@ -4,9 +4,7 @@ import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.model.SupNeighbour;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -16,7 +14,7 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
 
     private List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
     private List<Favorite> favorites = new ArrayList<>();
-    private List<SupNeighbour> supNeighbour = DummySupNeighbourGenerator.DUMMY_SUP_NEIGHBOURS;
+    //private List<SupNeighbour> supNeighbour = DummySupNeighbourGenerator.getDummySupNeighbours();
 
 
 
@@ -33,6 +31,13 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
 
             return favorites;
     }
+    //@Override
+    //public List<SupNeighbour> GetSupNeighbour() {
+
+     //   return supNeighbour;
+
+    // }
+
 
 
     /**
@@ -52,13 +57,13 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
         favorites.remove(favorite);
     }
 
+
+
     @Override
-    public List<SupNeighbour> GetSupNeighbor() {
-        Random rand = new Random();
-        return Collections.singletonList(supNeighbour.get(rand.nextInt(supNeighbour.size())));
+    public void addNeighbour() {
+        neighbours.add(DummySupNeighbourGenerator.getDummySupNeighbours());
 
     }
-
 
 
 }

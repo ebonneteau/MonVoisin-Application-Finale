@@ -56,8 +56,8 @@ public class SupNeighbour {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SupNeighbour neighbour = (SupNeighbour) o;
-        return Objects.equals(id, neighbour.id);
+        SupNeighbour supNeighbour = (SupNeighbour) o;
+        return Objects.equals(id, supNeighbour.id);
     }
 
     @Override

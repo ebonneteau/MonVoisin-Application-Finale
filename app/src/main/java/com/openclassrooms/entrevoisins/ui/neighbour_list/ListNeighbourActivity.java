@@ -6,10 +6,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-
 import com.openclassrooms.entrevoisins.R;
-
+import com.openclassrooms.entrevoisins.events.GetSupNeighbourEvent;
+import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,6 +27,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
 
     ListNeighbourPagerAdapter mPagerAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +39,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
 
-        //Adding FloatingActionButton method
+        // Adding FloatingActionButton method
         // FloatingActionButton will appear only on Neighbour page listener
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
@@ -53,6 +53,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         floatingActionButton.show();
+
                         break;
                     case 1:
                     default:
@@ -67,11 +68,9 @@ public class ListNeighbourActivity extends AppCompatActivity {
             }
         });
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
-
+        floatingActionButton.setOnClickListener(view -> EventBus.getDefault().post(new GetSupNeighbourEvent()));
 
     }
-
 
 
     @Override

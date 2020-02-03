@@ -26,6 +26,16 @@ public interface NeighbourApiService {
     List<Favorite> getFavorites();
 
     /**
+     * get a supplementary neighbor
+     * from list SupNeighbour
+     *
+     */
+
+    //List<SupNeighbour> GetSupNeighbour();
+
+
+
+    /**
      * Deletes a neighbour
      * @param neighbour
      */
@@ -38,12 +48,11 @@ public interface NeighbourApiService {
 
     void deleteFavorite (Favorite favorite);
 
-    /**
-     * get a supplementary neighbor
-     * from list SupNeighbour
-     */
 
-    List<SupNeighbour> GetSupNeighbor();
+
+    void addNeighbour ();
+
+
 }
 
 
