@@ -10,11 +10,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+
+import java.util.Objects;
 
 
 public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling Activity Android Studio type
@@ -23,7 +26,6 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
     private int mListId;
     private String mAvatarUrl;
     private String mAvatarName;
-
 
 
     @Override
@@ -35,12 +37,12 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
         Log.d(TAG, "onCreate: started ");
 
-        // Add back button
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        // Add back button with option requireNonNull
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mApiService = DI.getNeighbourApiService();
-        //rescues ListId, AvatarName and Avatarurl from Neighbor or favorite recycler "click"
+        //rescues ListId, AvatarName and AvatarUrl from Neighbor or favorite recycler holder "click"
         getIncomingIntent();
         //Verify if Neighbor is already part of Favorite list
         //If it's the case, then favorite button on will be shown as ticked (full yellow)
@@ -90,6 +92,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         });
 
     }
+
     //Method for home button
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -131,11 +134,12 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
             Log.d(TAG, "getIncomingIntent: " + neighbourListId);
             mListId = neighbourListId;
             Log.d(TAG, "mListId has now value of " + mListId);
-
-            setImage(avatarUrl); //Call method to inject neighbor image (avatarUrl)
-            setAllNeededValues(avatarName);
+            //Call method to inject neighbor image (avatarUrl)
+            setImage(avatarUrl);
             //Call method to inject avatarName as title of collapsingBar
             //as well as other needed values
+            setAllNeededValues(avatarName);
+
         }
     }
 

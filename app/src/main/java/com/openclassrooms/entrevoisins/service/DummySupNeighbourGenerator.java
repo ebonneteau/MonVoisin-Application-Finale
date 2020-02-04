@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Random;
 
 
-public abstract class DummySupNeighbourGenerator {
+abstract class DummySupNeighbourGenerator {
 
-    public static List<Neighbour> DUMMY_SUP_NEIGHBOURS = Arrays.asList(
+    private static List<Neighbour> DUMMY_SUP_NEIGHBOURS = Arrays.asList(
             new Neighbour(13, "Andrea", "https://i.pravatar.cc/150?img=48"),
             new Neighbour(14, "Marilyne", "https://i.pravatar.cc/150?img=47"),
             new Neighbour(15, "Armando", "https://i.pravatar.cc/150?img=51"),

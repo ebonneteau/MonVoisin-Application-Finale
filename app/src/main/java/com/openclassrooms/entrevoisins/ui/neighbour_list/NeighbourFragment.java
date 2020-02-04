@@ -2,10 +2,8 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.FitWindowsViewGroup;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +21,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class NeighbourFragment extends Fragment {
@@ -32,8 +31,6 @@ public class NeighbourFragment extends Fragment {
     private RecyclerView mRecyclerView;
 
 
-
-
     /**
      * Create and return a new instance
      *
@@ -41,7 +38,8 @@ public class NeighbourFragment extends Fragment {
      * @return @{@link NeighbourFragment}
      */
     public static NeighbourFragment newInstance(int i) {
-        NeighbourFragment fragment = new NeighbourFragment();
+        NeighbourFragment fragment;
+        fragment = new NeighbourFragment();
         return fragment;
     }
 
@@ -60,7 +58,8 @@ public class NeighbourFragment extends Fragment {
         Context context = view.getContext();
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        //Added requireNonNull option
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
 
         initList();
 
@@ -96,13 +95,15 @@ public class NeighbourFragment extends Fragment {
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
         mApiService.deleteNeighbour(event.neighbour);
-        mRecyclerView.getAdapter().notifyDataSetChanged();
+        Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
 
     }
+
     @Subscribe
-    public void onAddSupNeighbour (GetSupNeighbourEvent event) {
+    public void onAddSupNeighbour(GetSupNeighbourEvent event) {
         mApiService.addNeighbour();
-        mRecyclerView.getAdapter().notifyDataSetChanged();
+        //Added requireNonNull option
+        Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
     }
 
 

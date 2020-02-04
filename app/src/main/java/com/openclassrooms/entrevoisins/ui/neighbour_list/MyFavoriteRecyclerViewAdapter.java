@@ -1,9 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
-import android.support.annotation.RestrictTo;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,8 +15,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
 import com.openclassrooms.entrevoisins.model.Favorite;
-
-
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
@@ -29,8 +25,6 @@ import butterknife.ButterKnife;
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 
     private List<Favorite> mFavorite;
-
-
 
 
     private static final String TAG = "MyFavRView";
@@ -57,7 +51,6 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Favorite favorite = mFavorite.get(position);
 
-
         holder.mFavoriteName.setText(favorite.getName());
         Glide.with(holder.mFavoriteAvatar.getContext())
                 .load(favorite.getAvatarUrl())
@@ -70,14 +63,13 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
             Intent intent = new Intent(holder.mFavoriteAvatar.getContext(), NeighbourDetail.class);
             intent.putExtra("avatar_Url", favorite.getAvatarUrl());
             intent.putExtra("item_list_avatar", favorite.getName());
-            intent.putExtra("item_list_id",  favorite.getId());
+            intent.putExtra("item_list_id", favorite.getId());
 
             holder.mFavoriteAvatar.getContext().startActivity(intent);
         });
         holder.mDeleteButton.setOnClickListener(v -> {
             EventBus.getDefault().post(new DeleteFavoriteEvent(favorite));
             Log.d(TAG, "Size of list Favorite: " + mFavorite.size());
-
             // This method refreshes the fragment list view automatically
             // Needed only when not using EventBus (ex: direct List manipulation)
             // notifyDataSetChanged();
@@ -102,15 +94,12 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         public ImageButton mDeleteButton;
 
 
-
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
-    public void OnDataChanged(){
-        notifyDataSetChanged();
-    }
+
 
 
 }

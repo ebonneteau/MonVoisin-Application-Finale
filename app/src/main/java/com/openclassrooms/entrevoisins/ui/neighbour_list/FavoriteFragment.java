@@ -2,7 +2,6 @@ package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
@@ -20,11 +17,13 @@ import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
-import static com.openclassrooms.entrevoisins.R.id.add_to_favorite_bt;
+
 
 
 public class FavoriteFragment extends Fragment {
@@ -40,7 +39,8 @@ public class FavoriteFragment extends Fragment {
      * @return @{@link FavoriteFragment}
      */
     public static FavoriteFragment newInstance(int i) {
-        FavoriteFragment fragment = new FavoriteFragment();
+        FavoriteFragment fragment;
+        fragment = new FavoriteFragment();
 
         return fragment;
     }
@@ -50,13 +50,14 @@ public class FavoriteFragment extends Fragment {
     public View onCreateView(@Nullable LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        View view = inflater.inflate(R.layout.fragment_favorite_list, container, false);
+        //Added requireNonNull
+        View view = Objects.requireNonNull(inflater).inflate(R.layout.fragment_favorite_list, container, false);
         Context context = view.getContext();
         mApiService = DI.getNeighbourApiService();
         mRecyclerView = (RecyclerView) view;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        //Added requireNonNull
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
 
 
 
@@ -99,8 +100,9 @@ public class FavoriteFragment extends Fragment {
      *
      * @param event
      */
+    //Added @NotNull and disabled Inspection for @param
     @Subscribe
-    public void onDeleteFavorite(DeleteFavoriteEvent event) {
+    public void onDeleteFavorite(@NotNull DeleteFavoriteEvent event) {
         mApiService.deleteFavorite(event.favorite);
         initList();
     }
