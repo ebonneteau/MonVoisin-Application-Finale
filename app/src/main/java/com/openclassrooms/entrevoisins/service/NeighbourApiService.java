@@ -3,9 +3,6 @@ package com.openclassrooms.entrevoisins.service;
 
 import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-import com.openclassrooms.entrevoisins.model.SupNeighbour;
-
-
 import java.util.List;
 
 
@@ -19,25 +16,17 @@ public interface NeighbourApiService {
      * @return {@link List}
      */
     List<Neighbour> getNeighbours();
+
     /**
      * Get favorite Neighbours
      * @return {@link List}
      */
     List<Favorite> getFavorites();
 
-    /**
-     * get a supplementary neighbor
-     * from list SupNeighbour
-     *
-     */
-
-    //List<SupNeighbour> GetSupNeighbour();
-
-
 
     /**
      * Deletes a neighbour
-     * @param neighbour
+     *
      */
     void deleteNeighbour(Neighbour neighbour);
     /**
