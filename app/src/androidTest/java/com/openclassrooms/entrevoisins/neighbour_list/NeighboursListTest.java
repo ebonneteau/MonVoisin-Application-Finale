@@ -1,7 +1,9 @@
 
 package com.openclassrooms.entrevoisins.neighbour_list;
 
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.contrib.ViewPagerActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -9,13 +11,16 @@ import android.support.test.runner.AndroidJUnit4;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
-// 1 Add static import for ShowDetailsAction
-import com.openclassrooms.entrevoisins.utils.ShowDetailsViewAction;
+// 1 Add import for addViewAction
+import com.openclassrooms.entrevoisins.utils.AddViewAction;
+
+
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -70,9 +75,13 @@ public class NeighboursListTest {
         // Then : the number of element is 11
         onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT-1));
     }
-    // 2 Create Test method for ShowDetailsViewAction
+    // 2 Add method for addViewAction
     @Test
-    public void myNeighboursList_showDetailsAction_shouldLaunchNeighbourDetailActivity(){
+    public void myNeighbourList_addAction_shouldAddItem(){
+        // Given we click on add button
+        onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT));
+        new AddViewAction();
+        onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT ));
 
     }
 }
