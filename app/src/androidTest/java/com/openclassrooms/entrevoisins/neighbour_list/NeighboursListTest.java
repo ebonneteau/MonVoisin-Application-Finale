@@ -9,6 +9,8 @@ import android.support.test.runner.AndroidJUnit4;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
+// 1 Add static import for ShowDetailsAction
+import com.openclassrooms.entrevoisins.utils.ShowDetailsViewAction;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -67,5 +69,10 @@ public class NeighboursListTest {
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, new DeleteViewAction()));
         // Then : the number of element is 11
         onView(ViewMatchers.withId(R.id.list_neighbours)).check(withItemCount(ITEMS_COUNT-1));
+    }
+    // 2 Create Test method for ShowDetailsViewAction
+    @Test
+    public void myNeighboursList_showDetailsAction_shouldLaunchNeighbourDetailActivity(){
+
     }
 }
