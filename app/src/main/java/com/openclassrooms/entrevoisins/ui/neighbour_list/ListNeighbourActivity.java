@@ -23,7 +23,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
     ViewPager mViewPager;
     //Adding FloatingActionButton
     @BindView(R.id.add_neighbour_sup)
-    FloatingActionButton floatingActionButton;
+    FloatingActionButton mFloatingActionButton;
 
     ListNeighbourPagerAdapter mPagerAdapter;
 
@@ -52,12 +52,12 @@ public class ListNeighbourActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 0:
-                        floatingActionButton.show();
+                        mFloatingActionButton.show();
 
                         break;
                     case 1:
                     default:
-                        floatingActionButton.hide();
+                        mFloatingActionButton.hide();
                         break;
                 }
             }
@@ -68,7 +68,7 @@ public class ListNeighbourActivity extends AppCompatActivity {
             }
         });
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-        floatingActionButton.setOnClickListener(view -> EventBus.getDefault().post(new GetSupNeighbourEvent()));
+        mFloatingActionButton.setOnClickListener(view -> EventBus.getDefault().post(new GetSupNeighbourEvent()));
 
     }
 

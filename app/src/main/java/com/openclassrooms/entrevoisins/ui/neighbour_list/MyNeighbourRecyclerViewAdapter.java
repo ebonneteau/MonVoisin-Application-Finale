@@ -17,7 +17,6 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
-import com.openclassrooms.entrevoisins.model.Favorite;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
@@ -69,17 +68,10 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
             mApiService = DI.getNeighbourApiService();
             EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
-            if (!mApiService.getFavorites().isEmpty()) {
-                //Delete also the corresponding Favorite from favorite fragment view
-                EventBus.getDefault().post(new DeleteFavoriteEvent(new Favorite(mTempNeighbourId, mTempNeighborName, mTempNeighbourAvatarUrl)));
-
-
-            }
 
         });
 
-
-        //method to view details of item click
+        //method to view details on item click
         holder.mNeighbourAvatar.setOnClickListener(v -> {
 
             Log.d(TAG, "onClick: Neighbour to view details");
@@ -91,10 +83,7 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
             //Launch NeighborDetails activity
             holder.mNeighbourAvatar.getContext().startActivity(intent);
-
         });
-
-
     }
 
     @Override

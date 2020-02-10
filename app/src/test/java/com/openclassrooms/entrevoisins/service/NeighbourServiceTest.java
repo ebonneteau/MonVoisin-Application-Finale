@@ -11,6 +11,7 @@ import org.junit.runners.JUnit4;
 
 import java.util.List;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
@@ -36,8 +37,27 @@ public class NeighbourServiceTest {
 
     @Test
     public void deleteNeighbourWithSuccess() {
+        //Given
         Neighbour neighbourToDelete = service.getNeighbours().get(0);
+        service.addFavorite(neighbourToDelete);
+        //When
         service.deleteNeighbour(neighbourToDelete);
+        //Assert
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
+
+        assertFalse(service.getFavorites().contains(neighbourToDelete));
+
     }
+    // Added test - EB
+    @Test
+    public void addNeighbourWithSuccess() {
+        int neighbourListSize = service.getNeighbours().size();
+        //This method get a random Neighbor from hard coded list in DummySupNeighbourGenerator
+        service.addNeighbour();
+        // we ensure that the size of neighbourListSize get only 1 more element
+        assert ( service.getNeighbours().size() == neighbourListSize +1);
+
+    }
+
+
 }

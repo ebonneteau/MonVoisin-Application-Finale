@@ -11,6 +11,11 @@ import android.view.ViewParent;
 
 import com.openclassrooms.entrevoisins.R;
 
+import com.openclassrooms.entrevoisins.model.Neighbour;
+
+
+import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -18,6 +23,9 @@ import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+
+import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -27,15 +35,26 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
+
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class ListNeighbourDetailsActivityTest {
+
+
+    private String mAvatarName;
+
+
+
 
     @Rule
     public ActivityTestRule<ListNeighbourActivity> mActivityTestRule = new ActivityTestRule<>(ListNeighbourActivity.class);
 
     @Test
     public void listNeighbourDetailsActivityTest() {
+
+        //List<Neighbour> expectedNeighbours = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
+        mAvatarName = "Caroline";
+
         ViewInteraction appCompatImageView = onView(
                 allOf(withId(R.id.item_list_avatar),
                         childAtPosition(
@@ -57,14 +76,15 @@ public class ListNeighbourDetailsActivityTest {
         }
         // If neighbor_detail_name is shown, then it means NeighborDetails Activity is launched
         ViewInteraction textView = onView(
-                allOf(withId(R.id.neighbor_detail_name), withText("Caroline"),
+                allOf(withId(R.id.neighbor_detail_name),
                         childAtPosition(
                                 childAtPosition(
                                         IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
                                         0),
                                 0),
                         isDisplayed()));
-        textView.check(matches(isDisplayed()));
+        textView.check(matches(withText(mAvatarName)));
+
     }
 
     private static Matcher<View> childAtPosition(

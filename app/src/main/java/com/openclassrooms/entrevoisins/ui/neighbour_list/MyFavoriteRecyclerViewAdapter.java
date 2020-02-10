@@ -14,7 +14,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
-import com.openclassrooms.entrevoisins.model.Favorite;
+import com.openclassrooms.entrevoisins.model.Neighbour;
+
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
@@ -24,13 +25,13 @@ import butterknife.ButterKnife;
 
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 
-    private List<Favorite> mFavorite;
+    private List<Neighbour> mFavorite;
 
 
     private static final String TAG = "MyFavRView";
 
 
-    MyFavoriteRecyclerViewAdapter(List<Favorite> items) {
+    MyFavoriteRecyclerViewAdapter(List<Neighbour> items) {
         mFavorite = items;
 
 
@@ -49,7 +50,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Favorite favorite = mFavorite.get(position);
+        Neighbour favorite = mFavorite.get(position);
 
         holder.mFavoriteName.setText(favorite.getName());
         Glide.with(holder.mFavoriteAvatar.getContext())

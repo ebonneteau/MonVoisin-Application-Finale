@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
-import com.openclassrooms.entrevoisins.model.Favorite;
+import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import java.util.Objects;
@@ -50,7 +50,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         //Yellow color overrides white color in xml file
 
         FloatingActionButton mFab = findViewById(R.id.add_to_favorite_bt);
-        if (mApiService.getFavorites().contains(new Favorite(mListId, mAvatarName, mAvatarUrl))) {
+        if (mApiService.getFavorites().contains(new Neighbour(mListId, mAvatarName, mAvatarUrl))) {
             mFab.setImageResource(R.drawable.ic_star_white_24dp);
 
         } else {
@@ -72,10 +72,10 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
             //per existing index
             //if object is not null
             //compare object
-            if (mApiService.getFavorites().contains(new Favorite(mListId, mAvatarName, mAvatarUrl))) {
+            if (mApiService.getFavorites().contains(new Neighbour(mListId, mAvatarName, mAvatarUrl))) {
 
                 mFab.setImageResource(R.drawable.ic_star_white_24dp);
-                mApiService.deleteFavorite(new Favorite(mListId, mAvatarName, mAvatarUrl));
+                mApiService.deleteFavorite(new Neighbour(mListId, mAvatarName, mAvatarUrl));
                 Snackbar.make(view, mAvatarName + " is removed from your favorites", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
@@ -83,7 +83,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
             } else {
                 mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
-                mApiService.addFavorite(new Favorite(mListId, mAvatarName, mAvatarUrl));
+                mApiService.addFavorite(new Neighbour(mListId, mAvatarName, mAvatarUrl));
                 Log.d(TAG, mAvatarName + " is added to your favorites");
                 Snackbar.make(view, mAvatarName + " is added to your favorites", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();

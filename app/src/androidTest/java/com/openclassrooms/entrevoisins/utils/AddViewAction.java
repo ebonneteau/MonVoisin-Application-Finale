@@ -1,8 +1,10 @@
 package com.openclassrooms.entrevoisins.utils;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.openclassrooms.entrevoisins.R;
 
@@ -11,6 +13,7 @@ import org.hamcrest.Matcher;
 public class AddViewAction implements ViewAction {
     @Override
     public Matcher<View> getConstraints() {
+
         return null;
     }
 

@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
-import com.openclassrooms.entrevoisins.model.Favorite;
+import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
+import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,7 +29,7 @@ import java.util.Objects;
 
 public class FavoriteFragment extends Fragment {
     private NeighbourApiService mApiService;
-    public List<Favorite> mFavorite;
+    public List<Neighbour> mFavorite;
     private RecyclerView mRecyclerView;
 
 
@@ -105,6 +106,17 @@ public class FavoriteFragment extends Fragment {
     public void onDeleteFavorite(@NotNull DeleteFavoriteEvent event) {
         mApiService.deleteFavorite(event.favorite);
         initList();
+    }
+    /**
+     * Fired if the user clicks on a delete button
+     *  Delete also corresponding favorite
+     * @param event
+     */
+    @Subscribe
+    public void onDeleteNeighbour(DeleteNeighbourEvent event) {
+
+        Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
+
     }
 
 
