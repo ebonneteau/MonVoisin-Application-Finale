@@ -10,16 +10,15 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.openclassrooms.entrevoisins.R;
-
+import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
-
-
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,9 +40,12 @@ import static org.hamcrest.Matchers.allOf;
 public class ListNeighbourDetailsActivityTest {
 
 
-    private String mAvatarName;
+    private NeighbourApiService service;
 
-
+    @Before
+    public void setup() {
+        service = DI.getNewInstanceApiService();
+    }
 
 
     @Rule
@@ -52,17 +54,21 @@ public class ListNeighbourDetailsActivityTest {
     @Test
     public void listNeighbourDetailsActivityTest() {
 
-        //List<Neighbour> expectedNeighbours = DummyNeighbourGenerator.DUMMY_NEIGHBOURS;
-        mAvatarName = "Caroline";
+        //Given mAvatarName at position 1 in Neighbour list (reminder position 1 equals index 0 in List)
+        List<Neighbour> neighbours = service.getNeighbours();
+        String mAvatarName = neighbours.get(0).getName();
 
+        //Then clicking on mAvatarUrl (Avatar image)
+        //at position 1
+        //cf: Matcher<View> childAtPosition() at the end of this Class
         ViewInteraction appCompatImageView = onView(
                 allOf(withId(R.id.item_list_avatar),
                         childAtPosition(
                                 allOf(withId(R.id.parent_layout),
                                         childAtPosition(
-                                                withId(R.id.list_neighbours),
-                                                0)),
-                                0),
+                                                withId(R.id.list_neighbours)
+                                        ))
+                        ),
                         isDisplayed()));
         appCompatImageView.perform(click());
 
@@ -74,26 +80,27 @@ public class ListNeighbourDetailsActivityTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        // If neighbor_detail_name is shown, then it means NeighborDetails Activity is launched
         ViewInteraction textView = onView(
                 allOf(withId(R.id.neighbor_detail_name),
+                        isDisplayed(),
                         childAtPosition(
                                 childAtPosition(
-                                        IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                        0),
-                                0),
-                        isDisplayed()));
+                                        IsInstanceOf.instanceOf(android.widget.LinearLayout.class)
+                                )
+                        )));
+
+        //Assert TextView shows neighborName (mAvatarName)
         textView.check(matches(withText(mAvatarName)));
 
     }
 
     private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
+            final Matcher<View> parentMatcher) {
 
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
-                description.appendText("Child at position " + position + " in parent ");
+                description.appendText("Child at position " + 0 + " in parent ");
                 parentMatcher.describeTo(description);
             }
 
@@ -101,7 +108,7 @@ public class ListNeighbourDetailsActivityTest {
             public boolean matchesSafely(View view) {
                 ViewParent parent = view.getParent();
                 return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
+                        && view.equals(((ViewGroup) parent).getChildAt(0));
             }
         };
     }
