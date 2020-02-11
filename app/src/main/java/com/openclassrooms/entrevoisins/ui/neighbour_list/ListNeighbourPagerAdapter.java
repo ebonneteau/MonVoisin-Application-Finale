@@ -8,8 +8,6 @@ import android.util.Log;
 
 public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
     private static final String TAG = "ListNeighbourPagerAdap";
-
-
     ListNeighbourPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -43,6 +41,4 @@ public class ListNeighbourPagerAdapter extends FragmentPagerAdapter {
         } else
             return null;
     }
-
-
 }

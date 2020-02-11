@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
@@ -18,7 +19,9 @@ import com.openclassrooms.entrevoisins.model.Neighbour;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -26,32 +29,21 @@ import butterknife.ButterKnife;
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 
     private List<Neighbour> mFavorite;
-
-
     private static final String TAG = "MyFavRView";
-
-
     MyFavoriteRecyclerViewAdapter(List<Neighbour> items) {
         mFavorite = items;
-
-
     }
-
     @NotNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_favorite, parent, false);
         Log.d(TAG, "Size of list Favorite in  Favorite recyclerViewAdapter: " + mFavorite.size());
-
         return new ViewHolder(view);
     }
-
-
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Neighbour favorite = mFavorite.get(position);
-
         holder.mFavoriteName.setText(favorite.getName());
         Glide.with(holder.mFavoriteAvatar.getContext())
                 .load(favorite.getAvatarUrl())
@@ -77,10 +69,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
             // Keeping this for personal records
 
         });
-
-
     }
-
     @Override
     public int getItemCount() {
         return mFavorite.size();
@@ -94,13 +83,9 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
 
-
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
-
-
-
 }

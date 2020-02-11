@@ -2,14 +2,12 @@
 package com.openclassrooms.entrevoisins.Favorites_list;
 
 
-import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
-import com.openclassrooms.entrevoisins.utils.DeleteViewAction;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -20,9 +18,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.assertThat;
 import static android.support.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
-import static com.openclassrooms.entrevoisins.utils.RecyclerViewItemCountAssertion.withItemCount;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.hamcrest.core.IsNull.nullValue;
 
 
 /**
@@ -52,12 +48,11 @@ public class FavoritesListTest {
      * We ensure that our recyclerview is displaying NO ITEM
      */
     @Test
-    public void myNeighboursList_shouldBeEmpty() {
+    public void myFavoriteList_shouldBeEmpty() {
 
         onView(ViewMatchers.withId(R.id.list_favorites))
                 .check(matches(hasMinimumChildCount(0)));
     }
-
 
 
 }

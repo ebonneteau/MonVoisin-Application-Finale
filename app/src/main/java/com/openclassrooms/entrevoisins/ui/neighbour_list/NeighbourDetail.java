@@ -42,13 +42,12 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mApiService = DI.getNeighbourApiService();
-        //rescues ListId, AvatarName and AvatarUrl from Neighbor or favorite recycler holder "click"
         getIncomingIntent();
+
         //Verify if Neighbor is already part of Favorite list
         //If it's the case, then favorite button on will be shown as ticked (full yellow)
         //Else this button wil be shown as un-ticked (yellow border only)
         //Yellow color overrides white color in xml file
-
         FloatingActionButton mFab = findViewById(R.id.add_to_favorite_bt);
         if (mApiService.getFavorites().contains(new Neighbour(mListId, mAvatarName, mAvatarUrl))) {
             mFab.setImageResource(R.drawable.ic_star_white_24dp);
@@ -58,8 +57,6 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
         }
         mFab.setOnClickListener(view -> {
-            //add to, or remove from Favorite list
-            //on star button  clicking
 
             Log.d(TAG, "Value of mListId: " + mListId);
             Log.d(TAG, "Value of mAvatarName: " + mAvatarName);
@@ -68,10 +65,8 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
             mApiService = DI.getNeighbourApiService();
 
-            //create a new object
-            //per existing index
-            //if object is not null
-            //compare object
+            //add to, or remove from Favorite list
+            //on star button  clicking
             if (mApiService.getFavorites().contains(new Neighbour(mListId, mAvatarName, mAvatarUrl))) {
 
                 mFab.setImageResource(R.drawable.ic_star_white_24dp);
@@ -79,7 +74,6 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
                 Snackbar.make(view, mAvatarName + " is removed from your favorites", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
-
 
             } else {
                 mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
@@ -90,7 +84,6 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
                 mFab.setImageResource(R.drawable.ic_star_white_24dp);
             }
         });
-
     }
 
     //Method for home button
@@ -158,7 +151,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
     private void setAllNeededValues(String avatarName) {
 
         // By default the CollapsingToolbarLayout name displayed, is the app name.
-        // In this case it is "Neighbor Detail"
+        // In this case it is "Neighbour Detail"
         // This method displays the name of the neighbor.
         // instead of default title.
         CollapsingToolbarLayout myTitleBar = findViewById(R.id.toolbar_layout);
@@ -175,9 +168,5 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         //add name@facebook.com as facebook address
         TextView mCardViewFacebookAddress = findViewById(R.id.facebook_address_text);
         mCardViewFacebookAddress.setText(String.format("%s@facebook.com", avatarName));
-
-
     }
-
-
 }

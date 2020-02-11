@@ -1,4 +1,4 @@
-package com.openclassrooms.entrevoisins.ui.neighbour_list;
+package com.openclassrooms.entrevoisins.neighbour_list;
 
 
 import android.support.test.espresso.ViewInteraction;
@@ -13,6 +13,7 @@ import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
+import com.openclassrooms.entrevoisins.ui.neighbour_list.ListNeighbourActivity;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -70,6 +71,7 @@ public class ListNeighbourDetailsActivityTest {
                                         ))
                         ),
                         isDisplayed()));
+        //When Clicking on neighbour avatar image
         appCompatImageView.perform(click());
 
         // Added a sleep statement to match the app's execution delay.
@@ -89,7 +91,7 @@ public class ListNeighbourDetailsActivityTest {
                                 )
                         )));
 
-        //Assert TextView shows neighborName (mAvatarName)
+        //Then TextView shows neighborName (mAvatarName)
         textView.check(matches(withText(mAvatarName)));
 
     }

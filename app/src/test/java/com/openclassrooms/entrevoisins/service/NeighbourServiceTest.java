@@ -11,7 +11,7 @@ import org.junit.runners.JUnit4;
 
 import java.util.List;
 
-import static org.junit.Assert.assertArrayEquals;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
@@ -37,24 +37,25 @@ public class NeighbourServiceTest {
 
     @Test
     public void deleteNeighbourWithSuccess() {
-        //Given
+        //Given neighbour at position 1 is part of someone's favorite (so, in favorite list)
         Neighbour neighbourToDelete = service.getNeighbours().get(0);
         service.addFavorite(neighbourToDelete);
-        //When
+        //When deleting this neighbour
         service.deleteNeighbour(neighbourToDelete);
-        //Assert
+        //Assert this neighbour is removed from neighbour list AND favorite list
+        //reminder: IRL, a member signing off the application, should not be part of anyone's favorites !
         assertFalse(service.getNeighbours().contains(neighbourToDelete));
-
         assertFalse(service.getFavorites().contains(neighbourToDelete));
 
     }
-    // Added test - EB
+
     @Test
     public void addNeighbourWithSuccess() {
+        //Given the size of Neighbour list
         int neighbourListSize = service.getNeighbours().size();
-        //This method get a random Neighbor from hard coded list in DummySupNeighbourGenerator
+        //Then using addNeighbour event
         service.addNeighbour();
-        // we ensure that the size of neighbourListSize get only 1 more element
+        // Assert neighbor list get one and only one more entry
         assert ( service.getNeighbours().size() == neighbourListSize +1);
 
     }

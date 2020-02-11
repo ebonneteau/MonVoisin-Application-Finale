@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
 import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
@@ -23,8 +24,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
-
-
 
 
 public class FavoriteFragment extends Fragment {
@@ -45,9 +44,7 @@ public class FavoriteFragment extends Fragment {
 
         return fragment;
     }
-
     @Override
-
     public View onCreateView(@Nullable LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -59,13 +56,9 @@ public class FavoriteFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         //Added requireNonNull
         mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL));
-
-
-
         initList();
         return view;
     }
-
     @Override
     public void onResume() {
         // method to reload fragment each time user navigates on it
@@ -73,29 +66,23 @@ public class FavoriteFragment extends Fragment {
         super.onResume();
         initList();
     }
-
     private void initList() {
 
         mFavorite = mApiService.getFavorites();
         mRecyclerView.setAdapter(new MyFavoriteRecyclerViewAdapter(mFavorite));
-
-
     }
+
     //onStart - onStop and @Subscribe to register as Subscriber of the event
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
-
     @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-
-
-
     /**
      * Fired if the user clicks on a delete button
      *
@@ -109,16 +96,14 @@ public class FavoriteFragment extends Fragment {
     }
     /**
      * Fired if the user clicks on a delete button
-     *  Delete also corresponding favorite
+     * Delete also corresponding favorite
+     *
      * @param event
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteNeighbourEvent event) {
 
         Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
-
     }
-
-
 }
 

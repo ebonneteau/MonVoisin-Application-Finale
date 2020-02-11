@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.di.DI;
-import com.openclassrooms.entrevoisins.events.DeleteFavoriteEvent;
 import com.openclassrooms.entrevoisins.events.DeleteNeighbourEvent;
 import com.openclassrooms.entrevoisins.model.Neighbour;
 import com.openclassrooms.entrevoisins.service.NeighbourApiService;
@@ -38,7 +37,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
     MyNeighbourRecyclerViewAdapter(List<Neighbour> items) {
         mNeighbours = items;
-
     }
 
     @NotNull
@@ -62,10 +60,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
 
 
         holder.mDeleteButton.setOnClickListener(v -> {
-            Integer mTempNeighbourId = neighbour.getId();
-            String mTempNeighborName = neighbour.getName();
-            String mTempNeighbourAvatarUrl = neighbour.getAvatarUrl();
-
             mApiService = DI.getNeighbourApiService();
             EventBus.getDefault().post(new DeleteNeighbourEvent(neighbour));
 
@@ -75,7 +69,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         holder.mNeighbourAvatar.setOnClickListener(v -> {
 
             Log.d(TAG, "onClick: Neighbour to view details");
-
             Intent intent = new Intent(holder.mNeighbourAvatar.getContext(), NeighbourDetail.class);
             intent.putExtra("avatar_Url", neighbour.getAvatarUrl());
             intent.putExtra("item_list_avatar", neighbour.getName());
