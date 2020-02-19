@@ -6,9 +6,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
 import com.openclassrooms.entrevoisins.R;
 import com.openclassrooms.entrevoisins.events.GetSupNeighbourEvent;
+
 import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,7 +27,6 @@ public class ListNeighbourActivity extends AppCompatActivity {
     //Adding FloatingActionButton
     @BindView(R.id.add_neighbour_sup)
     FloatingActionButton mFloatingActionButton;
-
     ListNeighbourPagerAdapter mPagerAdapter;
 
 

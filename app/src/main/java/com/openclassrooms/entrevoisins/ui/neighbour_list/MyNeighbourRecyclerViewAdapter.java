@@ -31,7 +31,6 @@ import butterknife.ButterKnife;
 public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeighbourRecyclerViewAdapter.ViewHolder> {
 
     private final List<Neighbour> mNeighbours;
-    private static final String TAG = "MyNeighbourRView";
     private NeighbourApiService mApiService;
 
 
@@ -68,7 +67,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         //method to view details on item click
         holder.mNeighbourAvatar.setOnClickListener(v -> {
 
-            Log.d(TAG, "onClick: Neighbour to view details");
             Intent intent = new Intent(holder.mNeighbourAvatar.getContext(), NeighbourDetail.class);
             intent.putExtra("avatar_Url", neighbour.getAvatarUrl());
             intent.putExtra("item_list_avatar", neighbour.getName());
@@ -91,7 +89,6 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         public TextView mNeighbourName;
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
-
 
         ViewHolder(View view) {
             super(view);

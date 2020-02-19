@@ -29,18 +29,20 @@ import butterknife.ButterKnife;
 public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteRecyclerViewAdapter.ViewHolder> {
 
     private List<Neighbour> mFavorite;
-    private static final String TAG = "MyFavRView";
+
     MyFavoriteRecyclerViewAdapter(List<Neighbour> items) {
         mFavorite = items;
     }
+
     @NotNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_favorite, parent, false);
-        Log.d(TAG, "Size of list Favorite in  Favorite recyclerViewAdapter: " + mFavorite.size());
+
         return new ViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Neighbour favorite = mFavorite.get(position);
@@ -52,7 +54,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
 
         //method Lambda to view favorite details
         holder.mFavoriteAvatar.setOnClickListener(v -> {
-            Log.d(TAG, "onClick: Favorite to view details");
+
             Intent intent = new Intent(holder.mFavoriteAvatar.getContext(), NeighbourDetail.class);
             intent.putExtra("avatar_Url", favorite.getAvatarUrl());
             intent.putExtra("item_list_avatar", favorite.getName());
@@ -62,7 +64,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
         });
         holder.mDeleteButton.setOnClickListener(v -> {
             EventBus.getDefault().post(new DeleteFavoriteEvent(favorite));
-            Log.d(TAG, "Size of list Favorite: " + mFavorite.size());
+
             // This method refreshes the fragment list view automatically
             // Needed only when not using EventBus (ex: direct List manipulation)
             // notifyDataSetChanged();
@@ -70,6 +72,7 @@ public class MyFavoriteRecyclerViewAdapter extends RecyclerView.Adapter<MyFavori
 
         });
     }
+
     @Override
     public int getItemCount() {
         return mFavorite.size();

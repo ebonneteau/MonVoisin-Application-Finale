@@ -22,7 +22,6 @@ public class FavoriteServiceTest {
     private NeighbourApiService service;
 
 
-
     @Before
     public void setup() {
         service = DI.getNewInstanceApiService();
@@ -36,10 +35,11 @@ public class FavoriteServiceTest {
         // Given when then
         List<Neighbour> expectedFavorites = service.getFavorites();
 
-        assertTrue (expectedFavorites.size()==1);
+        assertTrue(expectedFavorites.size() == 1);
     }
+
     @Test
-    public  void addFavoritesWithSuccess(){
+    public void addFavoritesWithSuccess() {
         //Given we get a neighbour at position 2
         Neighbour oneNeighbour = DummyNeighbourGenerator.DUMMY_NEIGHBOURS.get(1);
 
@@ -49,8 +49,7 @@ public class FavoriteServiceTest {
         service.addFavorite(oneNeighbour);
 
         // Then Favorite list size must be 2
-        assertTrue (service.getFavorites().size()==2);
-
+        assertTrue(service.getFavorites().size() == 2);
 
 
     }

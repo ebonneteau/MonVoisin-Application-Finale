@@ -21,7 +21,7 @@ import java.util.Objects;
 
 
 public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling Activity Android Studio type
-    private static final String TAG = "NeighbourDetail";
+
     private NeighbourApiService mApiService;
     private int mListId;
     private String mAvatarUrl;
@@ -34,8 +34,6 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         setContentView(R.layout.activity_neighbour_detail);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Log.d(TAG, "onCreate: started ");
 
         // Add back button with option requireNonNull
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
@@ -58,13 +56,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         }
         mFab.setOnClickListener(view -> {
 
-            Log.d(TAG, "Value of mListId: " + mListId);
-            Log.d(TAG, "Value of mAvatarName: " + mAvatarName);
-            Log.d(TAG, "Value of mAvatarurl: " + mAvatarUrl);
-            //Verify list favorite size
-
             mApiService = DI.getNeighbourApiService();
-
             //add to, or remove from Favorite list
             //on star button  clicking
             if (mApiService.getFavorites().contains(new Neighbour(mListId, mAvatarName, mAvatarUrl))) {
@@ -78,7 +70,6 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
             } else {
                 mFab.setImageResource(R.drawable.ic_star_border_white_24dp);
                 mApiService.addFavorite(new Neighbour(mListId, mAvatarName, mAvatarUrl));
-                Log.d(TAG, mAvatarName + " is added to your favorites");
                 Snackbar.make(view, mAvatarName + " is added to your favorites", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 mFab.setImageResource(R.drawable.ic_star_white_24dp);
@@ -92,7 +83,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         int id = item.getItemId();
         if (id == android.R.id.home) {
             this.finish();
-            Log.d(TAG, "Clicked on home button: ");
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -105,28 +96,13 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
         // from the contextual click of one neighbor in MyNeighbourRecyclerViewAdapter
         // or from MyFavoriteRecyclerViewAdapter
 
-        Log.d(TAG, "getIncomingIntent: checking for incoming intents.");
-
         if (getIntent().hasExtra("avatar_Url") && getIntent().hasExtra("item_list_avatar")) {
-            Log.d(TAG, "getIncomingIntent: found intent extras.");
-
             String avatarUrl = getIntent().getStringExtra("avatar_Url");
-            //Verify the good url is returned and stored
-            Log.d(TAG, "getIncomingIntent avatarUrl: " + avatarUrl);
             mAvatarUrl = avatarUrl;
-            Log.d(TAG, "mAvatarurl has now value of " + mAvatarUrl);
-
             String avatarName = getIntent().getStringExtra("item_list_avatar");
-            //Verify the good name is returned and stored
-            Log.d(TAG, "getIncomingIntent avatarName: " + avatarName);
             mAvatarName = avatarName;
-            Log.d(TAG, "mAvatarName has now value of " + mAvatarName);
-
             Integer neighbourListId = getIntent().getIntExtra("item_list_id", mListId);
-            //Verify the good id is returned and stored
-            Log.d(TAG, "getIncomingIntent: " + neighbourListId);
             mListId = neighbourListId;
-            Log.d(TAG, "mListId has now value of " + mListId);
             //Call method to inject neighbor image (avatarUrl)
             setImage(avatarUrl);
             //Call method to inject avatarName as title of collapsingBar
@@ -138,9 +114,7 @@ public class NeighbourDetail extends AppCompatActivity { //This is a Scrolling A
 
     private void setImage(String avatarUrl) {
 
-        Log.d(TAG, "setImage: setting the image and name to widgets.");
         ImageView avatarImage = findViewById(R.id.item_list_avatar);
-
         Glide.with(this)
                 .asBitmap()
                 .load(avatarUrl)
